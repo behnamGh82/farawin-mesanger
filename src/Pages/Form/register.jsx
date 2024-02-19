@@ -1,15 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Input from "./Input";
 import Button from "./button";
 // import Link from "./Link";
-import { faLock, faPhone } from "@fortawesome/free-solid-svg-icons";
+import { faLock, faPhone, faUser } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 export default function RegisterForm() {
+  const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [passwordReapet, setPasswordReapet] = useState("");
   const phoneRegex =
     /^(?:(?:(?:\\+?|00)(98))|(0))?((?:90|91|92|93|99)[0-9]{8})$/;
+  const nameRegex =
+    /^([a-zA-Z]{2,}\s[a-zA-Z]{1,}'?-?[a-zA-Z]{2,}\s?([a-zA-Z]{1,})?)/;
+  const handleName = (event) => {
+    setName(event.target.value);
+  };
   const handlePhone = (event) => {
     setPhone(event.target.value);
   };
@@ -18,6 +24,14 @@ export default function RegisterForm() {
   };
   const handlePasswordReapet = (event) => {
     setPasswordReapet(event.target.value);
+  };
+  const validateName = (name) => {
+    if (name == "") {
+      return "Epmty";
+    } else if (!nameRegex.test(name)) {
+      return "notValid";
+    }
+    return "true";
   };
   const validatePhone = (phone) => {
     if (phone == "") {
@@ -43,12 +57,26 @@ export default function RegisterForm() {
     }
     return "true";
   };
+  const errName = validateName(name);
   const errPhone = validatePhone(phone);
   const errPassword = validatePpassword(password);
   const errPasswordReapet = validatePpasswordReapet(password, passwordReapet);
-
   return (
-    <div className=" flex flex-col gap-5 place-items-center w-3/4 md:w-2/5 lg:w-2/6  m-auto h-4/5 bg-[#f1f7fe] shadow-lg rounded-3xl px-10 py-5 pt-20">
+    <div className=" flex flex-col gap-5 place-items-center w-3/4 md:w-2/5 lg:w-2/6  m-auto h-4/5 bg-[#f1f7fe] shadow-lg rounded-3xl px-10 py-2">
+      <Input
+        label="نام و نام خانوادگی"
+        icon={faUser}
+        type="Tex"
+        err={
+          errName == "Epmty"
+            ? "نام و نام خانوادگی را وارد کنید"
+            : errName == "notValid"
+            ? "نام و نام خانوادگی را صحیح وارد کنید"
+            : ""
+        }
+        value={name}
+        onChange={handleName}
+      />
       <Input
         label="موبایل"
         icon={faPhone}
@@ -94,7 +122,11 @@ export default function RegisterForm() {
       <Button
         title="ثبت نام"
         disabale={
-          errPhone == "Epmty"
+          errName == "Epmty"
+            ? true
+            : errName == "notValid"
+            ? true
+            : errPhone == "Epmty"
             ? true
             : errPhone == "notValid"
             ? true
