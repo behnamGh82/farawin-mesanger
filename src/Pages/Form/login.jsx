@@ -3,6 +3,7 @@ import Input from "./Input.jsx";
 import Button from "./button.jsx";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 export default function LoginForm() {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
@@ -77,9 +78,9 @@ export default function LoginForm() {
             : false
         }
       />
-      {/* <Link to={"/register"} className="underline text-blue-500 hover:text-2xl">
-          ثبت نام
-        </Link> */}
+      <Link to={"/register"} className="underline text-blue-500 hover:text-2xl">
+        ثبت نام
+      </Link>
     </div>
   );
 }
