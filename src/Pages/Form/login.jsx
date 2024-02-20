@@ -4,6 +4,7 @@ import Button from "./button.jsx";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { data } from "autoprefixer";
 export default function LoginForm() {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
@@ -34,6 +35,20 @@ export default function LoginForm() {
   };
   const errPhone = validatePhone(phone);
   const errPassword = validatePpassword(password);
+  const handleButton = async () => {
+    const userLogin = await fetch(
+      "https://farawin.iran.liara.run/api/user/login",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          username: phone,
+          password: password,
+        }),
+      }
+    );
+    const res = await userLogin.json();
+    alert(res.message);
+  };
   return (
     <div className=" flex flex-col gap-5 place-items-center w-3/4 md:w-2/5 lg:w-2/6  m-auto h-4/5 bg-[#f1f7fe] shadow-lg rounded-3xl px-10 py-5 pt-20">
       <Input
@@ -66,6 +81,7 @@ export default function LoginForm() {
       />
       <Button
         title="ورود"
+        onclick={handleButton}
         disabale={
           errPhone == "Epmty"
             ? true
