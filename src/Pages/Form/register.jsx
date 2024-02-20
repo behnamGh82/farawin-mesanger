@@ -11,8 +11,8 @@ export default function RegisterForm() {
   const [passwordReapet, setPasswordReapet] = useState("");
   const phoneRegex =
     /^(?:(?:(?:\\+?|00)(98))|(0))?((?:90|91|92|93|99)[0-9]{8})$/;
-  const nameRegex =
-    /^([a-zA-Z]{2,}\s[a-zA-Z]{1,}'?-?[a-zA-Z]{2,}\s?([a-zA-Z]{1,})?)/;
+  // const nameRegex =
+  //   /^([a-zA-Z]{2,}\s[a-zA-Z]{1,}'?-?[a-zA-Z]{2,}\s?([a-zA-Z]{1,})?)/;
   const handleName = (event) => {
     setName(event.target.value);
   };
@@ -26,10 +26,8 @@ export default function RegisterForm() {
     setPasswordReapet(event.target.value);
   };
   const validateName = (name) => {
-    if (name == "") {
+    if (name.length < 10) {
       return "Epmty";
-    } else if (!nameRegex.test(name)) {
-      return "notValid";
     }
     return "true";
   };
