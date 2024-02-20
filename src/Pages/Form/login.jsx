@@ -3,7 +3,7 @@ import Input from "./Input.jsx";
 import Button from "./button.jsx";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { data } from "autoprefixer";
 export default function LoginForm() {
   const [phone, setPhone] = useState("");
@@ -35,19 +35,37 @@ export default function LoginForm() {
   };
   const errPhone = validatePhone(phone);
   const errPassword = validatePpassword(password);
+  const [err, setErr] = useState("");
+  const nav = useNavigate();
   const handleButton = async () => {
-    const userLogin = await fetch(
-      "https://farawin.iran.liara.run/api/user/login",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          username: phone,
-          password: password,
-        }),
-      }
-    );
-    const res = await userLogin.json();
-    alert(res.message);
+    let message = "";
+    let sucsses = "";
+    try {
+      const userLogin = await fetch(
+        "https://farawin.iran.liara.run/api/user/login",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            username: phone,
+            password: password,
+          }),
+        }
+      );
+      const res = await userLogin.json();
+      message = res.message;
+      sucsses = res.code;
+      alert(res.message);
+      alert(res.code);
+      alert(res.token);
+      console.log(res);
+      localStorage.setItem("token", res.token);
+    } catch (e) {
+      console.log(e);
+    }
+    setErr(message);
+    if (sucsses == "200") {
+      nav("/Messenger");
+    }
   };
   return (
     <div className=" flex flex-col gap-5 place-items-center w-3/4 md:w-2/5 lg:w-2/6  m-auto h-4/5 bg-[#f1f7fe] shadow-lg rounded-3xl px-10 py-5 pt-20">
@@ -94,6 +112,7 @@ export default function LoginForm() {
             : false
         }
       />
+      {err != "" && <p className="text-xs text-red-500">{err}</p>}
       <Link to={"/register"} className="underline text-blue-500 hover:text-2xl">
         ثبت نام
       </Link>

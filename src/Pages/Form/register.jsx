@@ -3,7 +3,7 @@ import Input from "./Input";
 import Button from "./button";
 // import Link from "./Link";
 import { faLock, faPhone, faUser } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 export default function RegisterForm() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -61,6 +61,36 @@ export default function RegisterForm() {
   const errPhone = validatePhone(phone);
   const errPassword = validatePpassword(password);
   const errPasswordReapet = validatePpasswordReapet(password, passwordReapet);
+  const [err, setErr] = useState("");
+  const nav = useNavigate();
+  const handleButton = async () => {
+    let message = "";
+    let sucsses = "";
+    try {
+      const userRegister = await fetch(
+        "https://farawin.iran.liara.run/api/user",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            username: phone,
+            password: password,
+            name: name,
+          }),
+        }
+      );
+      const res = await userRegister.json();
+      message = res.message;
+      sucsses = res.code;
+      console.log(res);
+    } catch (e) {
+      console.log(e);
+    }
+    setErr(message);
+    if (sucsses == "200") {
+      nav("/Messenger");
+    }
+  };
+
   return (
     <div className=" flex flex-col gap-5 place-items-center w-3/4 md:w-2/5 lg:w-2/6  m-auto h-4/5 bg-[#f1f7fe] shadow-lg rounded-3xl px-10 py-2">
       <Input
@@ -121,6 +151,7 @@ export default function RegisterForm() {
       />
       <Button
         title="ثبت نام"
+        onclick={handleButton}
         disabale={
           errName == "Epmty"
             ? true
@@ -141,6 +172,7 @@ export default function RegisterForm() {
             : false
         }
       />
+      {err != "" && <p className="text-xs text-red-500">{err}</p>}
       <Link to={"/login"} className="underline text-blue-500 hover:text-2xl">
         ورود
       </Link>
