@@ -35,8 +35,8 @@ export default function UserList() {
       </div>
       {contact.length > 0 && (
         <div className=" h-full overflow-y-scroll">
-          {contact.map((value, index) => (
-            <UserProfile key={index} title={value.name} />
+          {contact.map((value) => (
+            <UserProfile key={value.username} title={value.name} />
           ))}
         </div>
       )}

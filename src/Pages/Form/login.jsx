@@ -4,19 +4,24 @@ import Button from "./button.jsx";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
-import { data } from "autoprefixer";
+
 export default function LoginForm() {
+  //ذخیره شماره در استیت
   const [phone, setPhone] = useState("");
+  //ذخیره پسورد
   const [password, setPassword] = useState("");
+  //رجکس برای اعتبار سنجی شماره
   const phoneRegex =
     /^(?:(?:(?:\\+?|00)(98))|(0))?((?:90|91|92|93|99)[0-9]{8})$/;
+  //فانکشن برای دخیره مقدار ورودی موبایل
   const handlePhone = (event) => {
     setPhone(event.currentTarget.value);
   };
-
+  //فانکشن برای ذخیره مقدار ورودی پسورد
   const handlePassword = (event) => {
     setPassword(event.target.value);
   };
+  // فانکشن اعتبار سنجی موبایل مقدار خالی یا نا معتبر یا درست برمیگرداند
   const validatePhone = (phone) => {
     if (phone == "") {
       return "Epmty";
@@ -25,6 +30,7 @@ export default function LoginForm() {
     }
     return "true";
   };
+  //فانکشن اعتبار سنجی رمز مقدار خالی یا نامعتبر یا درست بر میگرداند
   const validatePpassword = (password) => {
     if (password == "") {
       return "Epmty";
@@ -33,10 +39,14 @@ export default function LoginForm() {
     }
     return "true";
   };
+  //ذخیره مقدار برگشتی فانکشن ها اعتبار سنجی جهت مقایسه و نمایش پیام مناسب به کاربر
   const errPhone = validatePhone(phone);
   const errPassword = validatePpassword(password);
+  //استیت برای دخیره پیغام دریافتی از api ونمایش آن به کاربر
   const [err, setErr] = useState("");
+  // استیت برای رفتن به صفحه چت بعد از لاگین
   const nav = useNavigate();
+  //فانکشن برای دکمه ثبت نام و فرستادن اطلاعات به سرور
   const handleButton = async () => {
     let message = "";
     let sucsses = "";
@@ -63,7 +73,9 @@ export default function LoginForm() {
     } catch (e) {
       console.log(e);
     }
+    //ذخیره پیغام دریافتی از سرور برای نمایش زیر دکمه
     setErr(message);
+    //بررسی کد دریافتی از سرور و اگر 200 بود انتقال به صفحه پیام رسان
     if (sucsses == "200") {
       nav("/Messenger");
     }

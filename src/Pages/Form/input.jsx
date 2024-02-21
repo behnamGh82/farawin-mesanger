@@ -4,6 +4,7 @@ import { useRef } from "react";
 export default function Input(props) {
   const inputRef = useRef(null);
   const { label, icon, type, err, ...other } = props;
+  //تابع برای اینکه اگر روی هرکجای کانتینر اینپوت کلیک شد تگ اینپوت فوکوس بشه
   function focusInput() {
     inputRef.current.focus();
   }
