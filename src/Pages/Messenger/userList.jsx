@@ -2,8 +2,11 @@ import { faAdd, faRefresh } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import UserProfile from "./userProfile";
 import { useEffect, useState } from "react";
+
 export default function UserList() {
+  // دخیره لیست کاربران برای نمایش
   const [contact, setContact] = useState([]);
+  //#region گرفتن کاربران از سرور
   useEffect(() => {
     const getContact = async () => {
       let con = [];
@@ -22,7 +25,11 @@ export default function UserList() {
     };
     getContact();
   }, []);
+  //#endregion
+
   console.log(contact);
+  //فیلتر کردن کاربرانی که رف انها برابر با شماره کاربر باشه
+  //نمایش مخاطبین همان کاربر نه تمام مخاطبین
   const filtered = contact.filter(
     (value) => value.ref == localStorage.getItem("phone")
   );
@@ -33,26 +40,38 @@ export default function UserList() {
         <FontAwesomeIcon icon={faAdd} />
         <FontAwesomeIcon icon={faRefresh} />
       </div>
-      {contact.length > 0 && (
-        <div className=" h-full overflow-y-scroll">
-          {contact.map((value) => (
-            <UserProfile key={value.username} title={value.name} />
-          ))}
-        </div>
-      )}
-      {contact.length == 0 && (
-        <div className=" flex flex-col gap-2 place-items-center h-full overflow-y-scroll pt-36">
-          <h1>مخاطبی وجود ندارد </h1>
-          <div>
-            <div className=" flex place-items-center w-20 h-20 rounded-full bg-[#3d4785] m-auto">
-              <FontAwesomeIcon
-                icon={faAdd}
-                className="m-auto w-10 h-10 text-white"
-              />
+      {
+        //مپ کردن لیست مخاطبین
+        //در اصل جای متغیر کانتکت باید فیلتر باشه برای تست ظاهر اینو گذاشتم
+        // filtered.length > 0 && (
+        //   <div className=" h-full overflow-y-scroll">
+        //     {filtered.map((value) => (
+        //       <UserProfile key={value.username} title={value.name} />
+        //     ))}
+        contact.length > 0 && (
+          <div className=" h-full overflow-y-scroll">
+            {contact.map((value) => (
+              <UserProfile key={value.username} title={value.name} />
+            ))}
+          </div>
+        )
+      }
+      {
+        // اگر لیست مخاطبین خالی بود اینو نمایش میده
+        contact.length == 0 && (
+          <div className=" flex flex-col gap-2 place-items-center h-full overflow-y-scroll pt-36">
+            <h1>مخاطبی وجود ندارد </h1>
+            <div>
+              <div className=" flex place-items-center w-20 h-20 rounded-full bg-[#3d4785] m-auto">
+                <FontAwesomeIcon
+                  icon={faAdd}
+                  className="m-auto w-10 h-10 text-white"
+                />
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )
+      }
     </div>
   );
 }
