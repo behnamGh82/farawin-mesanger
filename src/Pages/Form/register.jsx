@@ -1,18 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Input from "./Input";
 import Button from "./button";
-// import Link from "./Link";
 import { faLock, faPhone, faUser } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 export default function RegisterForm() {
+  // ذخیره نام
   const [name, setName] = useState("");
+  //ذخیره شماره در استیت
   const [phone, setPhone] = useState("");
+  //ذخیره پسورد
   const [password, setPassword] = useState("");
+  //ذخیره تکرار پسورد
   const [passwordReapet, setPasswordReapet] = useState("");
+  //رجکس برای اعتبار سنجی شماره
   const phoneRegex =
     /^(?:(?:(?:\\+?|00)(98))|(0))?((?:90|91|92|93|99)[0-9]{8})$/;
-  // const nameRegex =
-  //   /^([a-zA-Z]{2,}\s[a-zA-Z]{1,}'?-?[a-zA-Z]{2,}\s?([a-zA-Z]{1,})?)/;
+  //#region ذخیره مقدار فیلد ها در استیت ها
   const handleName = (event) => {
     setName(event.target.value);
   };
@@ -25,9 +28,13 @@ export default function RegisterForm() {
   const handlePasswordReapet = (event) => {
     setPasswordReapet(event.target.value);
   };
+  //#endregion
+  //#region اعتبار سنجی ورودی ها
   const validateName = (name) => {
-    if (name.length < 10) {
+    if (name == "") {
       return "Epmty";
+    } else if (name.length < 10) {
+      return "notValid";
     }
     return "true";
   };
@@ -55,12 +62,16 @@ export default function RegisterForm() {
     }
     return "true";
   };
+  //#endregion
+  //#region ذخیره مقدار برگشتی توابع اعتبار سنجی
   const errName = validateName(name);
   const errPhone = validatePhone(phone);
   const errPassword = validatePpassword(password);
   const errPasswordReapet = validatePpasswordReapet(password, passwordReapet);
+  //#endregion
   const [err, setErr] = useState("");
   const nav = useNavigate();
+  // فانکشن برای دکمه ثبت نام و فرستادن اطلاعات به سرور
   const handleButton = async () => {
     let message = "";
     let sucsses = "";

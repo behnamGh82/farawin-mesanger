@@ -46,7 +46,7 @@ export default function LoginForm() {
   const [err, setErr] = useState("");
   // استیت برای رفتن به صفحه چت بعد از لاگین
   const nav = useNavigate();
-  //فانکشن برای دکمه ثبت نام و فرستادن اطلاعات به سرور
+  //فانکشن برای دکمه  ورود و فرستادن اطلاعات به سرور
   const handleButton = async () => {
     let message = "";
     let sucsses = "";
