@@ -1,3 +1,4 @@
+import Chat_Messenger from "./Chat_Messenger";
 import UserList from "./userList";
 export default function Messenger() {
   return (
@@ -5,7 +6,7 @@ export default function Messenger() {
       <div className="h-full w-full md:w-[45%] lg:w-[35%] p-10">
         <UserList />
       </div>
-      <div className="h-full w-0 md:w-[55%] lg:w-[65%] bg-blue-500 flex-grow"></div>
+      <Chat_Messenger></Chat_Messenger>
     </div>
   );
 }
