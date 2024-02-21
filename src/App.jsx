@@ -40,6 +40,7 @@ export default function App() {
           <Route path="Messenger" element={<Messenger />} />
         </Routes>
       </BrowserRouter>
+      {/* <Messenger /> */}
     </div>
   );
 }

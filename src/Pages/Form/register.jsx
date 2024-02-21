@@ -80,6 +80,7 @@ export default function RegisterForm() {
       message = res.message;
       sucsses = res.code;
       console.log(res);
+      localStorage.setItem("phone", phone);
     } catch (e) {
       console.log(e);
     }

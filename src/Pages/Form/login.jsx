@@ -59,6 +59,7 @@ export default function LoginForm() {
       alert(res.token);
       console.log(res);
       localStorage.setItem("token", res.token);
+      localStorage.setItem("phone", phone);
     } catch (e) {
       console.log(e);
     }
