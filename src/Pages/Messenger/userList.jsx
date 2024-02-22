@@ -3,7 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import UserProfile from "./userProfile";
 import { useEffect, useState } from "react";
 
-export default function UserList() {
+export default function UserList(props) {
+  const { setActive } = props;
   // دخیره لیست کاربران برای نمایش
   const [contact, setContact] = useState([]);
   //#region گرفتن کاربران از سرور
@@ -51,7 +52,11 @@ export default function UserList() {
         contact.length > 0 && (
           <div className=" h-full overflow-y-scroll">
             {contact.map((value) => (
-              <UserProfile key={value.username} title={value.name} />
+              <UserProfile
+                username={value.username}
+                title={value.name}
+                setActive={setActive}
+              />
             ))}
           </div>
         )
