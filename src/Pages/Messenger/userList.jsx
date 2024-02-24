@@ -28,7 +28,6 @@ export default function UserList(props) {
   }, []);
   //#endregion
 
-  console.log(contact);
   //فیلتر کردن کاربرانی که رف انها برابر با شماره کاربر باشه
   //نمایش مخاطبین همان کاربر نه تمام مخاطبین
   const filtered = contact.filter(
@@ -53,7 +52,8 @@ export default function UserList(props) {
           <div className=" h-full overflow-y-scroll">
             {contact.map((value) => (
               <UserProfile
-                username={value.username}
+                date={value}
+                // username={value.username}
                 title={value.name}
                 setActive={setActive}
               />

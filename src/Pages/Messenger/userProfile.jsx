@@ -2,14 +2,14 @@ import { useState } from "react";
 
 export default function UserProfile(props) {
   // گرفتن دو مقدار کلید:شماره کاربر و عنوان: نام کاربر
-  const { username, title, setActive } = props;
+  const { date, title, setActive } = props;
   // انتخاب کابر   هنوز تکمیلش نکردم
   const handleSelect = () => {
-    setActive({ id: username, state: true });
+    setActive({ contactDate: date, state: true });
   };
   return (
     <div
-      key={username}
+      key={date.username}
       className="flex gap-3 place-items-center px-4 h-20 border-b-2 border-gray-400 active:bg-slate-400"
       onClick={handleSelect}
     >
