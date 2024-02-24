@@ -4,7 +4,7 @@ import UserProfile from "./userProfile";
 import { useEffect, useState } from "react";
 
 export default function UserList(props) {
-  const { setActive } = props;
+  const { setActive, setOpenAddUserDialog } = props;
   // دخیره لیست کاربران برای نمایش
   const [contact, setContact] = useState([]);
   //#region گرفتن کاربران از سرور
@@ -37,7 +37,14 @@ export default function UserList(props) {
     <div className="h-full w-full bg-white rounded-3xl shadow-lg overflow-hidden ">
       <div className="flex gap-3 h-20 place-items-center px-5">
         <h1 className="grow">پیامرسان فراوین</h1>
-        <FontAwesomeIcon icon={faAdd} />
+        <button
+          onClick={(e) => {
+            setOpenAddUserDialog(true);
+          }}
+        >
+          <FontAwesomeIcon icon={faAdd} />
+        </button>
+
         <FontAwesomeIcon icon={faRefresh} />
       </div>
       {
