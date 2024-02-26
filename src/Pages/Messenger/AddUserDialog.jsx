@@ -44,9 +44,21 @@ export default function AddUserDialog(props) {
   //استیت برای دخیره پیغام دریافتی از api ونمایش آن به کاربر
   const [err, setErr] = useState("");
   //فانکشن برای دکمه  ورود و فرستادن اطلاعات به سرور
-  const handleButton = () => {
-    console.log(phone);
-    console.log(name);
+  const handleButton = async () => {
+    const token = localStorage.getItem("token");
+    const addContact = await fetch(
+      "https://farawin.iran.liara.run/api/contact",
+      {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+          authorization: token,
+        },
+        body: JSON.stringify({ username: phone, name: name }),
+      }
+    );
+    const res = await addContact.json();
+    console.log(res);
   };
   return (
     <div className="flex fixed w-full h-full bg-[#00000088]">

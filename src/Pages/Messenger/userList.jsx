@@ -54,9 +54,9 @@ export default function UserList(props) {
         //     {filtered.map((value) => (
         //       <UserProfile key={value.username} title={value.name} />
         //     ))}
-        contact.length > 0 && (
+        filtered.length > 0 && (
           <div className=" h-full overflow-y-scroll">
-            {contact.map((value, index) => (
+            {filtered.map((value, index) => (
               <UserProfile
                 date={value}
                 // username={value.username}
@@ -72,7 +72,7 @@ export default function UserList(props) {
       }
       {
         // اگر لیست مخاطبین خالی بود اینو نمایش میده
-        contact.length == 0 && (
+        filtered.length == 0 && (
           <div className=" flex flex-col gap-2 place-items-center h-full overflow-y-scroll pt-36">
             <h1>مخاطبی وجود ندارد </h1>
             <button
