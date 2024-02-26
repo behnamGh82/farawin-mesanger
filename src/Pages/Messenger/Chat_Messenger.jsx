@@ -33,7 +33,7 @@ function Chat_Messenger({ contactinfo }) {
             {messages.map((msg, i) => (
               <MassageSnder key={i} data={msg}></MassageSnder>
             ))}
-            <div className="w-full bottom-0 fixed shadow-lg border my-2 border-[#212121] rounded-lg bg-red-500">
+            <div className="w-[60%] bottom-0 fixed shadow-lg border my-2 mx-10 border-[#212121] rounded-lg bg-red-500">
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -54,7 +54,7 @@ function Chat_Messenger({ contactinfo }) {
                   <i className="fa-solid fa-paper-plane text-3xl relative m-2"></i>
                 </button>
                 <input
-                  className="w-full rounded p-1 m-2 absolute border-none bg-[#ccc] font-semibold"
+                  className="w-[94%] rounded p-1 m-2 absolute border-none bg-[#ccc] font-semibold"
                   ref={messageInput}
                 ></input>
               </form>
