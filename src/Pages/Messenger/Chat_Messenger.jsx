@@ -7,33 +7,35 @@ function Chat_Messenger({ contactinfo }) {
   const [messages, Setmassage] = useState([]);
   // console.log(data);
   return (
-    <div className="h-full w-0 md:w-[55%] lg:w-[65%] bg-blue-500 flex-grow">
+    <div className="h-full w-0 md:w-[55%] p-3 lg:w-[65%] bg-blue-500 flex-grow">
       <nav className="w-full bg-[#3F51B5] h-32 shadow-lg shadow-slate-900 my-3 rounded-md">
         {contactinfo.state ? (
           <div>
             <div className="text-center">
               <h1 className="font-bold text-center p-2">مخاطب انتخاب شده</h1>
-              {/* <i class="fa-solid fa-id-card "></i> */}
-              <i className="fa-solid fa-circle-user text-2xl p-2 text-[#ccc]"></i>
-              <p className="font-extrabold inline p-3 text-xl">
-                نام کاربری : {contactinfo.contactDate.name}
-              </p>
-              <br></br>
-              <i className="fa-solid fa-phone inline p-1 text-2xl text-[#ccc] "></i>
-              <p className="font-extrabold inline p-4">
-                شماره تلفن : {contactinfo.contactDate.username}
-              </p>
-              <br></br>
-              <br></br>
+              <div className="flex justify-between mx-64">
+                {/* <i class="fa-solid fa-id-card "></i> */}
+                <div className="border border-[#212121] bg-[#212121] p-3 rounded-md">
+                  <p className="font-extrabold inline p-3 text-xl text-[#ccc]">
+                    <i className="fa-solid fa-circle-user text-2xl p-2"></i>
+                    نام کاربری : {contactinfo.contactDate.name}
+                  </p>
+                </div>
+                {/* <br></br> */}
+                <div className="border border-[#212121] bg-[#212121] p-3 rounded-md">
+                  <p className="font-extrabold inline p-4 text-[#ccc]">
+                    <i className="fa-solid fa-phone inline p-1 text-2xl"></i>
+                    شماره تلفن : {contactinfo.contactDate.username}
+                  </p>
+                </div>
+                <br></br>
+                <br></br>
+              </div>
             </div>
-
-            {/* {messages.map((msg, i) => {
-              <MassageSnder key={i} data={msg} />;
-            })} */}
             {messages.map((msg, i) => (
               <MassageSnder key={i} data={msg}></MassageSnder>
             ))}
-            <div className="w-[60%] bottom-0 fixed shadow-lg border my-2 mx-10 border-[#212121] rounded-lg bg-red-500">
+            <div className="lg:w-[60%] bottom-0 fixed shadow-lg border my-2 mx-10 border-[#212121] rounded-lg bg-red-500 md:w-[40%]">
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -54,7 +56,7 @@ function Chat_Messenger({ contactinfo }) {
                   <i className="fa-solid fa-paper-plane text-3xl relative m-2"></i>
                 </button>
                 <input
-                  className="w-[94%] rounded p-1 m-2 absolute border-none bg-[#ccc] font-semibold"
+                  className="lg:w-[94%] rounded p-1 m-2 absolute border-none bg-[#ccc] font-semibold md:w-[80%]"
                   ref={messageInput}
                 ></input>
               </form>

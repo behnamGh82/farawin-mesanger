@@ -2,9 +2,9 @@
 function MassageSnder({ data }) {
   return (
     <div>
-      <h1 className="m-3 border w-[200px] p-2 text-2xl rounded-xl border-[#ccc] text-[#ccc] bg-[#212121]">
+      <p className="m-6 border w-[200px] p-4 text-xl rounded-xl border-[#ccc] text-[#ccc] bg-[#212121]">
         {data.text}
-      </h1>
+      </p>
     </div>
   );
 }
