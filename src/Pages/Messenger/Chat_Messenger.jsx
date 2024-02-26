@@ -13,21 +13,17 @@ function Chat_Messenger({ contactinfo }) {
           <div>
             <div className="text-center">
               <h1 className="font-bold text-center p-2">مخاطب انتخاب شده</h1>
-              <div className="flex justify-between mx-64">
+              <div className="lg:flex justify-between mx-45 md:mx-18">
                 {/* <i class="fa-solid fa-id-card "></i> */}
-                <div className="border border-[#212121] bg-[#212121] p-3 rounded-md">
-                  <p className="font-extrabold inline p-3 text-xl text-[#ccc]">
-                    <i className="fa-solid fa-circle-user text-2xl p-2"></i>
-                    نام کاربری : {contactinfo.contactDate.name}
-                  </p>
-                </div>
-                {/* <br></br> */}
-                <div className="border border-[#212121] bg-[#212121] p-3 rounded-md">
-                  <p className="font-extrabold inline p-4 text-[#ccc]">
-                    <i className="fa-solid fa-phone inline p-1 text-2xl"></i>
-                    شماره تلفن : {contactinfo.contactDate.username}
-                  </p>
-                </div>
+                <p className="font-extrabold inline p-3 text-xl text-[#ccc]">
+                  <i className="fa-solid fa-circle-user text-2xl p-2"></i>
+                  نام کاربری : {contactinfo.contactDate.name}
+                </p>
+                <br></br>
+                <p className="font-extrabold inline p-4 text-[#ccc]">
+                  <i className="fa-solid fa-phone inline p-1 text-2xl"></i>
+                  شماره تلفن : {contactinfo.contactDate.username}
+                </p>
                 <br></br>
                 <br></br>
               </div>
@@ -35,7 +31,7 @@ function Chat_Messenger({ contactinfo }) {
             {messages.map((msg, i) => (
               <MassageSnder key={i} data={msg}></MassageSnder>
             ))}
-            <div className="lg:w-[60%] bottom-0 fixed shadow-lg border my-2 mx-10 border-[#212121] rounded-lg bg-red-500 md:w-[40%]">
+            <div className="lg:w-[60%] bottom-0 fixed shadow-lg border my-2 mx-10 border-[#212121] rounded-lg bg-red-500 md:w-[45%] m-0">
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
