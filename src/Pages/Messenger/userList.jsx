@@ -1,4 +1,4 @@
-import { faAdd, faRefresh } from "@fortawesome/free-solid-svg-icons";
+import { faAdd, faEdit, faRefresh } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import UserProfile from "./userProfile";
 import { useEffect, useState } from "react";
@@ -65,6 +65,7 @@ export default function UserList(props) {
                 setActive={setActive}
                 selected={selected}
                 setSelected={setSelected}
+                editButton={faEdit}
               />
             ))}
           </div>
