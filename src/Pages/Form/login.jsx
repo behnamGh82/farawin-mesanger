@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Input from "./Input.jsx";
+import InputBox from "./InputBox.jsx";
 import Button from "./button.jsx";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
@@ -82,7 +82,7 @@ export default function LoginForm() {
   };
   return (
     <div className=" flex flex-col gap-5 place-items-center w-3/4 md:w-2/5 lg:w-2/6  m-auto h-4/5 bg-[#f1f7fe] shadow-lg rounded-3xl px-10 py-5 pt-20">
-      <Input
+      <InputBox
         value={phone}
         onChange={handlePhone}
         label="موبایل"
@@ -96,7 +96,7 @@ export default function LoginForm() {
         }
         type="tel"
       />
-      <Input
+      <InputBox
         value={password}
         onChange={handlePassword}
         label="رمز"

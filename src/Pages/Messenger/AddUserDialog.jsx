@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Input from "../Form/Input.jsx";
+import InputBox from "../Form/InputBox.jsx";
 import Button from "../Form/button.jsx";
 import { faPhone, faX } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -72,7 +72,7 @@ export default function AddUserDialog(props) {
             <FontAwesomeIcon icon={faX}></FontAwesomeIcon>
           </button>
         </div>
-        <Input
+        <InputBox
           value={phone}
           onChange={handlePhone}
           label="موبایل"
@@ -86,7 +86,7 @@ export default function AddUserDialog(props) {
           }
           type="tel"
         />
-        <Input
+        <InputBox
           label="نام و نام خانوادگی"
           icon={faUser}
           type="Tex"

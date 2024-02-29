@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Input from "./Input";
+import InputBox from "./InputBox.jsx";
 import Button from "./button";
 import { faLock, faPhone, faUser } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
@@ -103,7 +103,7 @@ export default function RegisterForm() {
 
   return (
     <div className=" flex flex-col gap-5 place-items-center w-3/4 md:w-2/5 lg:w-2/6  m-auto h-4/5 bg-[#f1f7fe] shadow-lg rounded-3xl px-10 py-2">
-      <Input
+      <InputBox
         label="نام و نام خانوادگی"
         icon={faUser}
         type="Tex"
@@ -117,7 +117,7 @@ export default function RegisterForm() {
         value={name}
         onChange={handleName}
       />
-      <Input
+      <InputBox
         label="موبایل"
         icon={faPhone}
         type="tel"
@@ -131,7 +131,7 @@ export default function RegisterForm() {
         value={phone}
         onChange={handlePhone}
       />
-      <Input
+      <InputBox
         label="رمز"
         icon={faLock}
         type="password"
@@ -145,7 +145,7 @@ export default function RegisterForm() {
         value={password}
         onChange={handlePassword}
       />
-      <Input
+      <InputBox
         label="تکرار رمز"
         icon={faLock}
         type="password"
