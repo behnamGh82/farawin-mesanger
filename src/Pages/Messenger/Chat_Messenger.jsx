@@ -1,7 +1,7 @@
 import { faAdd, faRefresh } from "@fortawesome/free-solid-svg-icons";
 import { useRef } from "react";
 import { useState } from "react";
-import MassageSnder from "../../Components/MassageSnder";
+import MassageSnder from "../../Components/MessegeSnder";
 function Chat_Messenger({ contactinfo }) {
   let messageInput = useRef();
   const [messages, Setmassage] = useState([]);
@@ -39,7 +39,7 @@ function Chat_Messenger({ contactinfo }) {
               <MassageSnder key={i} data={msg}></MassageSnder>
             ))}
           </div>
-          <div className="lg:w-[60%] bottom-0 fixed shadow-lg border my-8 mx-16  rounded-lg bg-[#ccc] md:w-[45%] m-0">
+          <div className="lg:w-[60%] bottom-0 fixed shadow-lg border my-8 mx-16  rounded-lg bg-[#ccc] md:w-[45%] m-0 overflow-scroll">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
