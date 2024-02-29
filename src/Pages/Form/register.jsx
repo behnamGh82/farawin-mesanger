@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import InputBox from "./InputBox.jsx";
-import Button from "./Button.jsx";
+import Button from "./button.jsx";
 import { faLock, faPhone, faUser } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 export default function Register() {

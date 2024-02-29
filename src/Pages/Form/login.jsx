@@ -1,6 +1,6 @@
 import { useState } from "react";
 import InputBox from "./InputBox.jsx";
-import Button from "./Button.jsx";
+import Button from "./button.jsx";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";

@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./Pages/Form/Login.jsx";
-import Register from "./Pages/Form/Register.jsx";
+import Login from "./Pages/Form/login.jsx";
+import Register from "./Pages/Form/register.jsx";
 import HomePage from "./Pages/Home";
 import Messenger from "./Pages/Messenger/messenger";
 export default function App() {
