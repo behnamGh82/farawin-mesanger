@@ -34,12 +34,12 @@ function Chat_Messenger({ contactinfo }) {
               {/* اطلاعات مخاطب */}
             </div>
           </div>
-          <div className="mx-[80px] w-[96%] border-2 rounded-2xl  bg-[#ccc] h-[650px]">
+          <div className="mx-[80px] w-[96%] border-2 rounded-2xl  bg-[#ccc] h-[650px] overflow-scroll">
             {messages.map((msg, i) => (
               <MassageSnder key={i} data={msg}></MassageSnder>
             ))}
           </div>
-          <div className="lg:w-[60%] bottom-0 fixed shadow-lg border my-8 mx-16  rounded-lg bg-[#ccc] md:w-[45%] m-0 overflow-scroll">
+          <div className="lg:w-[60%] bottom-0 fixed shadow-lg border my-8 mx-16  rounded-lg bg-[#ccc] md:w-[45%] m-0 ">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
