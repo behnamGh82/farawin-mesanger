@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRef } from "react";
 
-export default function Input(props) {
+export default function InputBox(props) {
   const inputRef = useRef(null);
   const { label, icon, type, errorInput, ...other } = props;
   //تابع برای اینکه اگر روی هرکجای کانتینر اینپوت کلیک شد تگ اینپوت فوکوس بشه

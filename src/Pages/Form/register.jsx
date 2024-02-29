@@ -3,19 +3,16 @@ import InputBox from "./InputBox.jsx";
 import Button from "./Button.jsx";
 import { faLock, faPhone, faUser } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
-export default function RegisterForm() {
-  // ذخیره نام
+export default function Register() {
+  // ذخیره نام و شماره و رمز و تکرار رمز در استیت های زیر
   const [name, setName] = useState("");
-  //ذخیره شماره در استیت
   const [phone, setPhone] = useState("");
-  //ذخیره پسورد
   const [password, setPassword] = useState("");
-  //ذخیره تکرار پسورد
-  const [passwordReapet, setPasswordReapet] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
   //رجکس برای اعتبار سنجی شماره
   const phoneRegex =
     /^(?:(?:(?:\\+?|00)(98))|(0))?((?:90|91|92|93|99)[0-9]{8})$/;
-  //#region ذخیره مقدار فیلد ها در استیت ها
+  //توابع ذخیره مقدار فیلد های ورودی در استیت های مربوطه
   const handleName = (event) => {
     setName(event.target.value);
   };
@@ -25,12 +22,11 @@ export default function RegisterForm() {
   const handlePassword = (event) => {
     setPassword(event.target.value);
   };
-  const handlePasswordReapet = (event) => {
-    setPasswordReapet(event.target.value);
+  const handleRepeatPassword = (event) => {
+    setRepeatPassword(event.target.value);
   };
-  //#endregion
   //#region اعتبار سنجی ورودی ها
-  const validateName = (name) => {
+  const validationName = (name) => {
     if (name == "") {
       return "Epmty";
     } else if (name.length < 10) {
@@ -38,7 +34,7 @@ export default function RegisterForm() {
     }
     return "true";
   };
-  const validatePhone = (phone) => {
+  const validationPhone = (phone) => {
     if (phone == "") {
       return "Epmty";
     } else if (!phoneRegex.test(phone)) {
@@ -46,7 +42,7 @@ export default function RegisterForm() {
     }
     return "true";
   };
-  const validatePpassword = (password) => {
+  const validationPassword = (password) => {
     if (password == "") {
       return "Epmty";
     } else if (password.length < 8) {
@@ -54,27 +50,32 @@ export default function RegisterForm() {
     }
     return "true";
   };
-  const validatePpasswordReapet = (password, passwordReapet) => {
-    if (passwordReapet == "") {
+  const validationRepeatPassword = (password, repeatPassword) => {
+    if (repeatPassword == "") {
       return "Epmty";
-    } else if (passwordReapet != password) {
+    } else if (repeatPassword != password) {
       return "notValid";
     }
     return "true";
   };
   //#endregion
   //#region ذخیره مقدار برگشتی توابع اعتبار سنجی
-  const errName = validateName(name);
-  const errPhone = validatePhone(phone);
-  const errPassword = validatePpassword(password);
-  const errPasswordReapet = validatePpasswordReapet(password, passwordReapet);
+  const errorName = validationName(name);
+  const errorPhone = validationPhone(phone);
+  const errorPassword = validationPassword(password);
+  const errorRepeatPassword = validationRepeatPassword(
+    password,
+    repeatPassword
+  );
   //#endregion
-  const [err, setErr] = useState("");
-  const nav = useNavigate();
+  //استیت برای دخیره پیغام دریافتی از سرور
+  const [errorApi, setErrorApi] = useState("");
+  // استیت برای رفتن به صفحه چت بعد از لاگین
+  const navigateChatPage = useNavigate();
   // فانکشن برای دکمه ثبت نام و فرستادن اطلاعات به سرور
   const handleButton = async () => {
     let message = "";
-    let sucsses = "";
+    let sucssesCode = "";
     try {
       const userRegister = await fetch(
         "https://farawin.iran.liara.run/api/user",
@@ -89,15 +90,14 @@ export default function RegisterForm() {
       );
       const res = await userRegister.json();
       message = res.message;
-      sucsses = res.code;
-      console.log(res);
+      sucssesCode = res.code;
       localStorage.setItem("phone", phone);
     } catch (e) {
-      console.log(e);
+      message = "اتصال به سرور برقرار نشد";
     }
-    setErr(message);
-    if (sucsses == "200") {
-      nav("/Messenger");
+    setErrorApi(message);
+    if (sucssesCode == "200") {
+      navigateChatPage("/Messenger");
     }
   };
 
@@ -106,11 +106,11 @@ export default function RegisterForm() {
       <InputBox
         label="نام و نام خانوادگی"
         icon={faUser}
-        type="Tex"
-        err={
-          errName == "Epmty"
+        type="text"
+        errorInput={
+          errorName == "Epmty"
             ? "نام و نام خانوادگی را وارد کنید"
-            : errName == "notValid"
+            : errorName == "notValid"
             ? "نام و نام خانوادگی را صحیح وارد کنید"
             : ""
         }
@@ -121,10 +121,10 @@ export default function RegisterForm() {
         label="موبایل"
         icon={faPhone}
         type="tel"
-        err={
-          errPhone == "Epmty"
+        errorInput={
+          errorPhone == "Epmty"
             ? "موبایل الزامیست"
-            : errPhone == "notValid"
+            : errorPhone == "notValid"
             ? "موبایل معتبر نیست"
             : ""
         }
@@ -135,10 +135,10 @@ export default function RegisterForm() {
         label="رمز"
         icon={faLock}
         type="password"
-        err={
-          errPassword == "Epmty"
+        errorInput={
+          errorPassword == "Epmty"
             ? "رمز را وارد کنید"
-            : errPassword == "notValid"
+            : errorPassword == "notValid"
             ? "طول رمز حداقل 8 کارکتر"
             : ""
         }
@@ -149,40 +149,40 @@ export default function RegisterForm() {
         label="تکرار رمز"
         icon={faLock}
         type="password"
-        err={
-          errPasswordReapet == "Epmty"
+        errorInput={
+          errorRepeatPassword == "Epmty"
             ? "رمز را وارد کنید"
-            : errPasswordReapet == "notValid"
+            : errorRepeatPassword == "notValid"
             ? "رمز یکسان نیست"
             : ""
         }
-        value={passwordReapet}
-        onChange={handlePasswordReapet}
+        value={repeatPassword}
+        onChange={handleRepeatPassword}
       />
       <Button
         title="ثبت نام"
         onclick={handleButton}
         disabale={
-          errName == "Epmty"
+          errorName == "Epmty"
             ? true
-            : errName == "notValid"
+            : errorName == "notValid"
             ? true
-            : errPhone == "Epmty"
+            : errorPhone == "Epmty"
             ? true
-            : errPhone == "notValid"
+            : errorPhone == "notValid"
             ? true
-            : errPassword == "Epmty"
+            : errorPassword == "Epmty"
             ? true
-            : errPassword == "notValid"
+            : errorPassword == "notValid"
             ? true
-            : errPasswordReapet == "Epmty"
+            : errorRepeatPassword == "Epmty"
             ? true
-            : errPasswordReapet == "notValid"
+            : errorRepeatPassword == "notValid"
             ? true
             : false
         }
       />
-      {err != "" && <p className="text-xs text-red-500">{err}</p>}
+      {errorApi != "" && <p className="text-xs text-red-500">{errorApi}</p>}
       <Link to={"/login"} className="underline text-blue-500 hover:text-2xl">
         ورود
       </Link>

@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LoginForm from "./Pages/Form/Login";
-import RegisterForm from "./Pages/Form/Register";
+import Login from "./Pages/Form/Login.jsx";
+import Register from "./Pages/Form/Register.jsx";
 import HomePage from "./Pages/Home";
 import Messenger from "./Pages/Messenger/messenger";
 export default function App() {
@@ -9,8 +9,8 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="login" element={<LoginForm />} />
-          <Route path="Register" element={<RegisterForm />} />
+          <Route path="login" element={<Login />} />
+          <Route path="Register" element={<Register />} />
           <Route path="Messenger" element={<Messenger />} />
         </Routes>
       </BrowserRouter>

@@ -5,7 +5,7 @@ import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function LoginForm() {
+export default function Login() {
   //ذخیره مقدار فیلد شماره و رمز در استیت ها
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
@@ -20,7 +20,7 @@ export default function LoginForm() {
     setPassword(event.target.value);
   };
   // فانکشن اعتبار سنجی موبایل و رمز عبور مقدار خالی یا نا معتبر یا درست برمیگرداند
-  const validatePhone = (phone) => {
+  const validationPhone = (phone) => {
     if (phone == "") {
       return "Epmty";
     } else if (!phoneRegex.test(phone)) {
@@ -28,7 +28,7 @@ export default function LoginForm() {
     }
     return "true";
   };
-  const validatePpassword = (password) => {
+  const validationPassword = (password) => {
     if (password == "") {
       return "Epmty";
     } else if (password.length < 8) {
@@ -37,8 +37,8 @@ export default function LoginForm() {
     return "true";
   };
   //ذخیره مقدار برگشتی فانکشن ها اعتبار سنجی جهت مقایسه و نمایش پیام مناسب به کاربر
-  const errorPhone = validatePhone(phone);
-  const errorPassword = validatePpassword(password);
+  const errorPhone = validationPhone(phone);
+  const errorPassword = validationPassword(password);
   //استیت برای دخیره پیغام دریافتی از سرور
   const [errorApi, setErrorApi] = useState("");
   // استیت برای رفتن به صفحه چت بعد از لاگین
