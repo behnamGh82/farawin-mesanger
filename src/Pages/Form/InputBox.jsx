@@ -3,7 +3,7 @@ import { useRef } from "react";
 
 export default function Input(props) {
   const inputRef = useRef(null);
-  const { label, icon, type, err, ...other } = props;
+  const { label, icon, type, errorInput, ...other } = props;
   //تابع برای اینکه اگر روی هرکجای کانتینر اینپوت کلیک شد تگ اینپوت فوکوس بشه
   function focusInput() {
     inputRef.current.focus();
@@ -23,7 +23,7 @@ export default function Input(props) {
           className="h-full w-full text-center focus:outline-none border-b-2 focus:text-black"
         />
       </div>
-      <p className="text-xs text-red-500">{err}</p>
+      <p className="text-xs text-red-500">{errorInput}</p>
     </div>
   );
 }

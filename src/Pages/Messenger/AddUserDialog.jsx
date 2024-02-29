@@ -1,6 +1,6 @@
 import { useState } from "react";
 import InputBox from "../Form/InputBox.jsx";
-import Button from "../Form/button.jsx";
+import Button from "../Form/Button.jsx";
 import { faPhone, faX } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

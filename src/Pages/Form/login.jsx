@@ -1,27 +1,25 @@
 import { useState } from "react";
 import InputBox from "./InputBox.jsx";
-import Button from "./button.jsx";
+import Button from "./Button.jsx";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function LoginForm() {
-  //ذخیره شماره در استیت
+  //ذخیره مقدار فیلد شماره و رمز در استیت ها
   const [phone, setPhone] = useState("");
-  //ذخیره پسورد
   const [password, setPassword] = useState("");
   //رجکس برای اعتبار سنجی شماره
   const phoneRegex =
     /^(?:(?:(?:\\+?|00)(98))|(0))?((?:90|91|92|93|99)[0-9]{8})$/;
-  //فانکشن برای دخیره مقدار ورودی موبایل
+  //فانکشن برای دخیره مقدار فیلد شماره و رمز در استیت ها
   const handlePhone = (event) => {
     setPhone(event.currentTarget.value);
   };
-  //فانکشن برای ذخیره مقدار ورودی پسورد
   const handlePassword = (event) => {
     setPassword(event.target.value);
   };
-  // فانکشن اعتبار سنجی موبایل مقدار خالی یا نا معتبر یا درست برمیگرداند
+  // فانکشن اعتبار سنجی موبایل و رمز عبور مقدار خالی یا نا معتبر یا درست برمیگرداند
   const validatePhone = (phone) => {
     if (phone == "") {
       return "Epmty";
@@ -30,7 +28,6 @@ export default function LoginForm() {
     }
     return "true";
   };
-  //فانکشن اعتبار سنجی رمز مقدار خالی یا نامعتبر یا درست بر میگرداند
   const validatePpassword = (password) => {
     if (password == "") {
       return "Epmty";
@@ -40,16 +37,16 @@ export default function LoginForm() {
     return "true";
   };
   //ذخیره مقدار برگشتی فانکشن ها اعتبار سنجی جهت مقایسه و نمایش پیام مناسب به کاربر
-  const errPhone = validatePhone(phone);
-  const errPassword = validatePpassword(password);
-  //استیت برای دخیره پیغام دریافتی از api ونمایش آن به کاربر
-  const [err, setErr] = useState("");
+  const errorPhone = validatePhone(phone);
+  const errorPassword = validatePpassword(password);
+  //استیت برای دخیره پیغام دریافتی از سرور
+  const [errorApi, setErrorApi] = useState("");
   // استیت برای رفتن به صفحه چت بعد از لاگین
-  const nav = useNavigate();
+  const navigateChatPage = useNavigate();
   //فانکشن برای دکمه  ورود و فرستادن اطلاعات به سرور
-  const handleButton = async () => {
+  const handleLoginButton = async () => {
     let message = "";
-    let sucsses = "";
+    let sucssesCode = "";
     try {
       const userLogin = await fetch(
         "https://farawin.iran.liara.run/api/user/login",
@@ -63,21 +60,17 @@ export default function LoginForm() {
       );
       const res = await userLogin.json();
       message = res.message;
-      sucsses = res.code;
-      alert(res.message);
-      alert(res.code);
-      alert(res.token);
-      console.log(res);
+      sucssesCode = res.code;
       localStorage.setItem("token", res.token);
       localStorage.setItem("phone", phone);
     } catch (e) {
-      console.log(e);
+      message = "اتصال به سرور برقرار نشد";
     }
     //ذخیره پیغام دریافتی از سرور برای نمایش زیر دکمه
-    setErr(message);
+    setErrorApi(message);
     //بررسی کد دریافتی از سرور و اگر 200 بود انتقال به صفحه پیام رسان
-    if (sucsses == "200") {
-      nav("/Messenger");
+    if (sucssesCode == "200") {
+      navigateChatPage("/Messenger");
     }
   };
   return (
@@ -87,10 +80,10 @@ export default function LoginForm() {
         onChange={handlePhone}
         label="موبایل"
         icon={faPhone}
-        err={
-          errPhone == "Epmty"
+        errorInput={
+          errorPhone == "Epmty"
             ? "موبایل الزامیست"
-            : errPhone == "notValid"
+            : errorPhone == "notValid"
             ? "موبایل معتبر نیست"
             : ""
         }
@@ -101,10 +94,10 @@ export default function LoginForm() {
         onChange={handlePassword}
         label="رمز"
         icon={faLock}
-        err={
-          errPassword == "Epmty"
+        errorInput={
+          errorPassword == "Epmty"
             ? "رمز را وارد کنید"
-            : errPassword == "notValid"
+            : errorPassword == "notValid"
             ? "طول رمز حداقل 8 کارکتر"
             : ""
         }
@@ -112,20 +105,20 @@ export default function LoginForm() {
       />
       <Button
         title="ورود"
-        onclick={handleButton}
+        onclick={handleLoginButton}
         disabale={
-          errPhone == "Epmty"
+          errorPhone == "Epmty"
             ? true
-            : errPhone == "notValid"
+            : errorPhone == "notValid"
             ? true
-            : errPassword == "Epmty"
+            : errorPassword == "Epmty"
             ? true
-            : errPassword == "notValid"
+            : errorPassword == "notValid"
             ? true
             : false
         }
       />
-      {err != "" && <p className="text-xs text-red-500">{err}</p>}
+      {errorApi != "" && <p className="text-xs text-red-500">{errorApi}</p>}
       <Link to={"/register"} className="underline text-blue-500 hover:text-2xl">
         ثبت نام
       </Link>
