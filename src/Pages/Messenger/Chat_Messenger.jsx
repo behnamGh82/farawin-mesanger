@@ -39,9 +39,19 @@ function Chat_Messenger({ contactinfo }) {
     const sendMessages = await fetch(
       "https://farawin.iran.liara.run/api/chat",
       {
-        method: "",
+        method: "POST",
+        headers: {
+          accept: "application/json",
+          authorization: "token",
+        },
+        body: JSON.stringify({
+          username: contactinfo.contactDate.username,
+          chatData: data,
+        }),
       }
     );
+    const res = await sendMessages.json();
+    console.log(res);
   };
   return (
     <div>
