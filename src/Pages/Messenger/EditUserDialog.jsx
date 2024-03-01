@@ -107,7 +107,7 @@ export default function EditUserDialog(props) {
         <Button
           title="ویرایش مخاطب"
           onclick={handleEditContactButton}
-          disabale={
+          disable={
             EditPhoneErorr == "Epmty"
               ? true
               : EditPhoneErorr == "notValid"
