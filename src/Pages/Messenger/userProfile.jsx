@@ -2,12 +2,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function UserProfile(props) {
   // گرفتن دو مقدار کلید:شماره کاربر و عنوان: نام کاربر
-  const { date, title, setActive, selected, setSelected, index, editButton } =
-    props;
+  const {
+    data,
+    title,
+    selectedUser,
+    setSelectedUser,
+    setChange,
+    index,
+    editButton,
+  } = props;
   // انتخاب کابر   هنوز تکمیلش نکردم
   const handleSelect = () => {
-    setActive({ contactDate: date, state: true });
-    setSelected(index);
+    setSelectedUser({ contactDate: data, state: true });
+    setChange(true);
   };
   return (
     <div
@@ -22,10 +29,15 @@ export default function UserProfile(props) {
         <h1 className="m-auto text-xl text-white">{title.charAt(0)}</h1>
       </div>
       <h3 className="grow">{title}</h3>
-      <button className="ml-5">
+      <button
+        className="ml-5  z-10"
+        onClick={(e) => {
+          alert("salam");
+        }}
+      >
         <FontAwesomeIcon icon={editButton} />
       </button>
-      {selected === index ? (
+      {selectedUser.contactDate.username === index ? (
         <div className="bg-[#00000011] absolute w-full h-full "></div>
       ) : null}
     </div>
