@@ -35,7 +35,14 @@ function Chat_Messenger({ contactinfo }) {
   }, []);
   // console.log(data);
   // نوشتن درخواست برای افزودن پیام
-  // const sendMessages = await
+  const handelbuttonSenderMessages = async () => {
+    const sendMessages = await fetch(
+      "https://farawin.iran.liara.run/api/chat",
+      {
+        method: "",
+      }
+    );
+  };
   return (
     <div>
       {/* قسمت بالایی چت */}
