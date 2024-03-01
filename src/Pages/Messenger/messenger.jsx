@@ -4,14 +4,14 @@ import UserList from "./userList";
 import AddUserDialog from "./AddUserDialog";
 import EditUserDialog from "./EditUserDialog";
 export default function Messenger() {
-  //وضعیت کلیک روی مخاطب اگر روی مخاطبی کلیک شود مقدار استیت trueمیشود
-  //و شماره کاربر در آیدی ذخیره میشود
-  // const [openAddUserDialog, setOpenAddUserDialog] = useState(false);
+  const [contact, setContact] = useState([]);
+  const [selectContactIsChange, setSelectContactIsChange] = useState(false);
+  //استیت دخیره کاربر انتخاب شده در یوزرلیست
   const [selectedUser, setSelectedUser] = useState({
     contactDate: {},
     state: false,
   });
-  // const [active, setActive] = useState({ contactData: {}, state: false });
+  //استیت برای باز کردن دیالوگ افزودن کاربر و ویرایش کاربر
   const [openAddUserDialog, setOpenAddUserDialog] = useState(false);
   const [openEditUserDialog, setOpenEditUserDialog] = useState(false);
   return (
@@ -23,12 +23,26 @@ export default function Messenger() {
           setSelectedUser={setSelectedUser}
           setOpenAddUserDialog={setOpenAddUserDialog}
           setOpenEditUserDialog={setOpenEditUserDialog}
+          contact={contact}
+          setContact={setContact}
+          selectContactIsChange={selectContactIsChange}
+          setSelectContactIsChange={setSelectContactIsChange}
         />
       </div>
+      {/* chat Section */}
       <Chat_Messenger contactinfo={selectedUser}></Chat_Messenger>
+
       {openAddUserDialog && (
-        <AddUserDialog setOpenAddUserDialog={setOpenAddUserDialog} />
+        <AddUserDialog
+          setOpenAddUserDialog={setOpenAddUserDialog}
+          contact={contact}
+          setContact={setContact}
+          setSelectedUser={setSelectedUser}
+          selectContactIsChange={selectContactIsChange}
+          setSelectContactIsChange={setSelectContactIsChange}
+        />
       )}
+
       {openEditUserDialog && (
         <EditUserDialog
           openEditUserDialog={openEditUserDialog}

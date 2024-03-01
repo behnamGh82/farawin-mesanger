@@ -1,20 +1,42 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect, useState } from "react";
 export default function UserProfile(props) {
-  // گرفتن دو مقدار کلید:شماره کاربر و عنوان: نام کاربر
+  //data:object selectedUser:object setSelectedUser:setState-object
+  //setSelectContactIsChange:setState-boolean
+  //index:string editButton:FontAwesomeIcon title:string setOpenEditUserDialog:setState-boolean
   const {
     data,
     selectedUser,
     setSelectedUser,
-    setChange,
+    setSelectContactIsChange,
     index,
     editButton,
     title,
     setOpenEditUserDialog,
   } = props;
-  // انتخاب کابر   هنوز تکمیلش نکردم
+  const [thisContactChat, setThisContactChat] = useState([]);
+  const getThisContactChat = async () => {
+    const Contact = await fetch(
+      "https://farawin.iran.liara.run/api/chat/{contactUsername}",
+      {
+        path: { index },
+        headers: {
+          authorization: localStorage.getItem("token"),
+        },
+      }
+    );
+    const res = await Contact.json();
+    setThisContactChat(res.chatList);
+  };
+  useEffect(() => {
+    if (index != "") {
+      getThisContactChat();
+    }
+  }, [index]);
+  // تابع برای انخاب هر مخاظب و ذخیره دیتای آن
   const handleSelect = () => {
     setSelectedUser({ contactDate: data, state: true });
-    setChange(true);
+    setSelectContactIsChange(true);
   };
   return (
     <div
@@ -28,7 +50,10 @@ export default function UserProfile(props) {
         {/* نمایش حرف اول اسم کاربر بجای عکس */}
         <h1 className="m-auto text-xl text-white">{title.charAt(0)}</h1>
       </div>
-      <h3 className="grow">{title}</h3>
+      <div className=" flex flex-col grow">
+        <h3>{title}</h3>
+        <p>{thisContactChat[thisContactChat.length - 1]}</p>
+      </div>
       <button
         className="ml-5  z-10"
         onClick={(e) => {
@@ -37,6 +62,7 @@ export default function UserProfile(props) {
       >
         <FontAwesomeIcon icon={editButton} />
       </button>
+      {/* هایلایت کردن مخاطب انتخاب شده */}
       {selectedUser.contactDate.username === index ? (
         <div className="bg-[#00000011] absolute w-full h-full "></div>
       ) : null}

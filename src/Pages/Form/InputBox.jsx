@@ -3,15 +3,15 @@ import { useRef } from "react";
 
 export default function InputBox(props) {
   const inputRef = useRef(null);
+  //label:string icon:FontAwesomeIcon type:string errorInput:string
   const { label, icon, type, errorInput, ...other } = props;
-  //تابع برای اینکه اگر روی هرکجای کانتینر اینپوت کلیک شد تگ اینپوت فوکوس بشه
-  function focusInput() {
+  function handleClickBoxFocusInput() {
     inputRef.current.focus();
   }
   return (
     <div
-      className="flex flex-col gap-1 bg-white h-24 w-3/4 rounded-xl px-6 py-3 text-[#8f8f8f] shadow-md"
-      onClick={focusInput}
+      className="flex flex-col gap-1 bg-white h-24 w-3/4 rounded-xl px-6 py-3 text-[#8f8f8f] shadow-lg"
+      onClick={handleClickBoxFocusInput}
     >
       <label htmlFor="">{label}</label>
       <div className="flex gap-1 flex-grow items-center w-full">

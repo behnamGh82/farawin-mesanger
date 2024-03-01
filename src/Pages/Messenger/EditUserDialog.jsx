@@ -26,7 +26,7 @@ export default function EditUserDialog(props) {
   const validateName = (Editname) => {
     if (Editname == "") {
       return "Epmty";
-    } else if (Editname.length < 10) {
+    } else if (Editname.length < 5) {
       return "notValid";
     }
     return "true";
@@ -61,6 +61,7 @@ export default function EditUserDialog(props) {
       }
     );
     const res = await EditContact.json();
+    SetErorr(res.message);
     console.log(res);
   };
   return (
@@ -92,7 +93,7 @@ export default function EditUserDialog(props) {
         <InputBox
           label="نام و نام خانوادگی"
           icon={faUser}
-          type="Tex"
+          type="Text"
           errorInput={
             EditNameErorr == "Epmty"
               ? "نام و نام خانوادگی مخاطب را جهت ویرایش وارد کنید"

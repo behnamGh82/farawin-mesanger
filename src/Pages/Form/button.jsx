@@ -1,10 +1,11 @@
 export default function Button(props) {
-  const { title, disabale, onclick } = props;
+  //title:strinng disable:boolean onclick:void
+  const { title, disable, onclick } = props;
   return (
     <button
       onClick={onclick}
-      disabled={disabale}
-      className="w-2/3 h-16  bg-[#3d4785] text-white rounded-full disabled:bg-slate-400"
+      disabled={disable}
+      className="w-2/3 h-16  bg-[#ff4a09] text-white rounded-full disabled:bg-[#ccc]"
     >
       {title}
     </button>
