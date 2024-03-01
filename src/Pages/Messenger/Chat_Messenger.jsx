@@ -3,6 +3,8 @@ import { useRef } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import MassageSnder from "../../Components/MessegeSnder";
+import { confirmAlert } from "react-confirm-alert"; // Import
+import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 function Chat_Messenger({ contactinfo }) {
   let messageInput = useRef();
   // استیت ست مسیج برای ذخیره پیام های دریافت شده از api
@@ -34,7 +36,7 @@ function Chat_Messenger({ contactinfo }) {
     setMesseges(newMsg);
   };
   // نوشتن درخواست برای ویرایش پیام
-  const handelbuttonEditedMessege = async () => {
+  const handelbuttonEditedMessege = async (id, index) => {
     const token = localStorage.getItem("token");
     const EditedMessege = await fetch(
       "https://farawin.iran.liara.run/api/chat",
@@ -44,16 +46,19 @@ function Chat_Messenger({ contactinfo }) {
           authorization: token,
         },
         body: JSON.stringify({
-          id: "id",
+          id: id,
           textHtml: messageInput.current.value,
         }),
       }
     );
     const res = await EditedMessege.json();
-    console.log(res);
+    console.log(index);
+    let editMsg = messeges;
+    // editMsg[index].text = "edited text";
+    setMesseges(editMsg);
   };
   // نوشتن درخواست برای حذف پیام
-  const handlerbuttonDeletedMessage = async () => {
+  const handlerbuttonDeletedMessage = async (id, index) => {
     const token = localStorage.getItem("token");
     const DeletedMessege = await fetch(
       "https://farawin.iran.liara.run/api/chat",
@@ -63,7 +68,7 @@ function Chat_Messenger({ contactinfo }) {
           authorization: token,
         },
         body: JSON.stringify({
-          id: "",
+          id: id,
         }),
       }
     );
@@ -100,23 +105,27 @@ function Chat_Messenger({ contactinfo }) {
           </div>
           <div className="mx-[80px] w-[96%] border-2 rounded-2xl  bg-[#ccc] h-[650px] overflow-auto">
             {messeges.length > 0 ? (
-              messeges.map((text) => (
+              messeges.map((text, index) => (
                 <div>
                   <div className="border-2 w-[200px] bg-[#FF4A09] mx-[20px] my-[10px] p-[5px] rounded-2xl text-[#ccc]">
                     <p className="text-[#212121] font-semibold">
                       پیغام : {text.text}
-                      {console.log(messeges)}
+                      {/* {console.log(messeges)} */}
                     </p>
                     ارسال کننده:
                     <p className="text-[#212121] font-semibold">
                       {text.sender}
                     </p>
                     <div className="flex justify-between">
-                      <button onClick={handelbuttonEditedMessege}>
-                        <i class="fa-regular fa-pen-to-square"></i>
+                      <button
+                        onClick={() => {
+                          handelbuttonEditedMessege(text.id, index);
+                        }}
+                      >
+                        <i className="fa-regular fa-pen-to-square"></i>
                       </button>
                       <button onClick={handlerbuttonDeletedMessage}>
-                        <i class="fa-solid fa-trash"></i>
+                        <i className="fa-solid fa-trash"></i>
                       </button>
                     </div>
                   </div>
