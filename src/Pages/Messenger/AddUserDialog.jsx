@@ -77,7 +77,7 @@ export default function AddUserDialog(props) {
           onChange={handlePhone}
           label="موبایل"
           icon={faPhone}
-          err={
+          errorInput={
             errPhone == "Epmty"
               ? "موبایل الزامیست"
               : errPhone == "notValid"
@@ -90,7 +90,7 @@ export default function AddUserDialog(props) {
           label="نام و نام خانوادگی"
           icon={faUser}
           type="Tex"
-          err={
+          errorInput={
             errName == "Epmty"
               ? "نام و نام خانوادگی را وارد کنید"
               : errName == "notValid"

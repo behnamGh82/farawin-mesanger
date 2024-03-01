@@ -80,7 +80,7 @@ export default function EditUserDialog(props) {
           onChange={handleEditPhone}
           label="موبایل"
           icon={faPhone}
-          Erorr={
+          errorInput={
             EditPhoneErorr == "Epmty"
               ? "موبایل برای ویرایش الزامی است"
               : EditPhoneErorr == "notValid"
@@ -93,7 +93,7 @@ export default function EditUserDialog(props) {
           label="نام و نام خانوادگی"
           icon={faUser}
           type="Tex"
-          Erorr={
+          errorInput={
             EditNameErorr == "Epmty"
               ? "نام و نام خانوادگی مخاطب را جهت ویرایش وارد کنید"
               : EditNameErorr == "notValid"
@@ -107,13 +107,13 @@ export default function EditUserDialog(props) {
           title="ویرایش مخاطب"
           onclick={handleEditContactButton}
           disabale={
-            errPhone == "Epmty"
+            EditPhoneErorr == "Epmty"
               ? true
-              : errPhone == "notValid"
+              : EditPhoneErorr == "notValid"
               ? true
-              : errName == "Epmty"
+              : EditPhoneErorr == "Epmty"
               ? true
-              : errName == "notValid"
+              : EditPhoneErorr == "notValid"
               ? true
               : false
           }

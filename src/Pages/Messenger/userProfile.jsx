@@ -9,6 +9,7 @@ export default function UserProfile(props) {
     index,
     editButton,
     title,
+    setOpenEditUserDialog,
   } = props;
   // انتخاب کابر   هنوز تکمیلش نکردم
   const handleSelect = () => {
@@ -31,7 +32,7 @@ export default function UserProfile(props) {
       <button
         className="ml-5  z-10"
         onClick={(e) => {
-          alert("salam");
+          setOpenEditUserDialog(true);
         }}
       >
         <FontAwesomeIcon icon={editButton} />

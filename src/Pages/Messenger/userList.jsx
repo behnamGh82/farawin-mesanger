@@ -4,7 +4,12 @@ import UserProfile from "./userProfile";
 import { useEffect, useState } from "react";
 
 export default function UserList(props) {
-  const { selectedUser, setSelectedUser, setOpenAddUserDialog } = props;
+  const {
+    selectedUser,
+    setSelectedUser,
+    setOpenAddUserDialog,
+    setOpenEditUserDialog,
+  } = props;
   // دخیره لیست کاربران برای نمایش
   const [contact, setContact] = useState([]);
   //#region گرفتن کاربران از سرور
@@ -70,6 +75,7 @@ export default function UserList(props) {
                 setSelectedUser={setSelectedUser}
                 setChange={setChange}
                 editButton={faEdit}
+                setOpenEditUserDialog={setOpenEditUserDialog}
               />
             ))}
           </div>

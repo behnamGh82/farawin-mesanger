@@ -12,8 +12,8 @@ export default function Messenger() {
     state: false,
   });
   // const [active, setActive] = useState({ contactData: {}, state: false });
-  const [openAddUserDialog, setOpenAddUserDialog, setOpenEditUserDialog] =
-    useState(false);
+  const [openAddUserDialog, setOpenAddUserDialog] = useState(false);
+  const [openEditUserDialog, setOpenEditUserDialog] = useState(false);
   return (
     <div className="h-full w-full flex overflow-hidden">
       <div className="h-full w-full md:w-[45%] lg:w-[35%] p-10">
@@ -29,8 +29,9 @@ export default function Messenger() {
       {openAddUserDialog && (
         <AddUserDialog setOpenAddUserDialog={setOpenAddUserDialog} />
       )}
-      {setOpenEditUserDialog && (
+      {openEditUserDialog && (
         <EditUserDialog
+          openEditUserDialog={openEditUserDialog}
           setOpenEditUserDialog={setOpenEditUserDialog}
         ></EditUserDialog>
       )}
