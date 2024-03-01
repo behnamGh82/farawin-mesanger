@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputBox from "../Form/InputBox.jsx";
 import Button from "../Form/button.jsx";
 import { faPhone, faX } from "@fortawesome/free-solid-svg-icons";
@@ -6,12 +6,16 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function AddUserDialog(props) {
-  const { setOpenAddUserDialog } = props;
-  // ذخیره نام
+  const {
+    setOpenAddUserDialog,
+    contact,
+    setContact,
+    setSelectedUser,
+    selectContactIsChange,
+    setSelectContactIsChange,
+  } = props;
   const [name, setName] = useState("");
-  //ذخیره شماره در استیت
   const [phone, setPhone] = useState("");
-  //رجکس برای اعتبار سنجی شماره
   const phoneRegex =
     /^(?:(?:(?:\\+?|00)(98))|(0))?((?:90|91|92|93|99)[0-9]{8})$/;
   const handleName = (event) => {
@@ -33,7 +37,7 @@ export default function AddUserDialog(props) {
   const validateName = (name) => {
     if (name == "") {
       return "Epmty";
-    } else if (name.length < 10) {
+    } else if (name.length < 5) {
       return "notValid";
     }
     return "true";
@@ -42,10 +46,25 @@ export default function AddUserDialog(props) {
   const errPhone = validatePhone(phone);
   const errName = validateName(name);
   //استیت برای دخیره پیغام دریافتی از api ونمایش آن به کاربر
-  const [err, setErr] = useState("");
+  const [errorApi, setErrorApi] = useState("");
+  const [onclick, setOnclick] = useState(false);
+  const getContact = async () => {
+    const Contact = await fetch("https://farawin.iran.liara.run/api/contact", {
+      headers: {
+        authorization: localStorage.getItem("token"),
+      },
+    });
+    const res = await Contact.json();
+    setContact(
+      res.contactList.filter(
+        (value) => value.ref == localStorage.getItem("phone")
+      )
+    );
+  };
   //فانکشن برای دکمه  ورود و فرستادن اطلاعات به سرور
   const handleButton = async () => {
     const token = localStorage.getItem("token");
+    let sucssesCode = "";
     const addContact = await fetch(
       "https://farawin.iran.liara.run/api/contact",
       {
@@ -58,10 +77,21 @@ export default function AddUserDialog(props) {
       }
     );
     const res = await addContact.json();
-    console.log(res);
+    setErrorApi(res.message);
+    sucssesCode = res.code;
+    if (sucssesCode == "200") {
+      getContact();
+      setSelectedUser({
+        contactDate: contact[contact.length - 1],
+        state: true,
+      });
+      setSelectContactIsChange(true);
+      setOpenAddUserDialog(false);
+    }
   };
+
   return (
-    <div className="flex fixed w-full h-full bg-[#00000088]">
+    <div className="flex fixed w-full h-full bg-[#00000088] ">
       <div className=" flex flex-col gap-5 place-items-center w-3/4 md:w-2/5 lg:w-2/6  m-auto h-4/5 bg-[#f1f7fe] shadow-lg rounded-3xl px-10 py-5 pt-20 relative">
         <div className="absolute top-2 right-3 text-red-500">
           <button
@@ -102,8 +132,11 @@ export default function AddUserDialog(props) {
         />
         <Button
           title="افزودن مخاطب"
-          onclick={handleButton}
-          disabale={
+          onclick={() => {
+            handleButton();
+            setOnclick(true);
+          }}
+          disable={
             errPhone == "Epmty"
               ? true
               : errPhone == "notValid"
@@ -115,7 +148,7 @@ export default function AddUserDialog(props) {
               : false
           }
         />
-        {err != "" && <p className="text-xs text-red-500">{err}</p>}
+        {errorApi != "" && <p className="text-xs text-red-500">{errorApi}</p>}
       </div>
     </div>
   );

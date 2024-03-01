@@ -29,7 +29,7 @@ export default function Register() {
   const validationName = (name) => {
     if (name == "") {
       return "Epmty";
-    } else if (name.length < 10) {
+    } else if (name.length < 5) {
       return "notValid";
     }
     return "true";
@@ -106,7 +106,7 @@ export default function Register() {
       <InputBox
         label="نام و نام خانوادگی"
         icon={faUser}
-        type="text"
+        type="Text"
         errorInput={
           errorName == "Epmty"
             ? "نام و نام خانوادگی را وارد کنید"
@@ -162,7 +162,7 @@ export default function Register() {
       <Button
         title="ثبت نام"
         onclick={handleButton}
-        disabale={
+        disable={
           errorName == "Epmty"
             ? true
             : errorName == "notValid"

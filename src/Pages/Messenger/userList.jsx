@@ -1,19 +1,24 @@
 import { faAdd, faEdit, faRefresh } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import UserProfile from "./userProfile";
+
 import { useEffect, useState } from "react";
 
 export default function UserList(props) {
+  //selectedUser:object setSelectedUser:setState-object
+  // setOpenAddUserDialog:setState-boolean setOpenEditUserDialog:setState-boolean
   const {
     selectedUser,
     setSelectedUser,
     setOpenAddUserDialog,
     setOpenEditUserDialog,
+    contact,
+    setContact,
+    selectContactIsChange,
+    setSelectContactIsChange,
   } = props;
-  // دخیره لیست کاربران برای نمایش
-  const [contact, setContact] = useState([]);
-  //#region گرفتن کاربران از سرور
-  const [change, setChange] = useState(false);
+  // const [contact, setContact] = useState([]);
+
   const getContact = async () => {
     const Contact = await fetch("https://farawin.iran.liara.run/api/contact", {
       headers: {
@@ -21,30 +26,27 @@ export default function UserList(props) {
       },
     });
     const res = await Contact.json();
-    // con = res.contactList;
     setContact(
       res.contactList.filter(
         (value) => value.ref == localStorage.getItem("phone")
       )
     );
-    //   console.log(con);
+    // setContact(res.contactList);
   };
   useEffect(() => {
     getContact();
   }, []);
+  //اگر لیست مخاطبین خالی بود و هیچ مخاظبی انتخاب نشده بود افکت زیر اجرا میشود
   useEffect(() => {
-    if (contact.length > 0 && change == false) {
+    if (contact.length > 0 && selectContactIsChange == false) {
       setSelectedUser({ contactDate: contact[0], state: true });
     }
-  }, [contact, change]);
-  //#endregion
-  //فیلتر کردن کاربرانی که رف انها برابر با شماره کاربر باشه
-  //نمایش مخاطبین همان کاربر نه تمام مخاطبین
-
+  }, [contact, selectContactIsChange]);
   return (
     <div className="h-full w-full bg-white rounded-3xl shadow-lg overflow-hidden ">
       <div className="flex gap-3 h-20 place-items-center px-5 shadow-lg">
         <h1 className="grow">پیامرسان فراوین</h1>
+        {/* دکمه افزودن کاربر */}
         <button
           onClick={(e) => {
             setOpenAddUserDialog(true);
@@ -52,18 +54,13 @@ export default function UserList(props) {
         >
           <FontAwesomeIcon icon={faAdd} />
         </button>
+        {/* دکمه رفرش لیست */}
         <button onClick={getContact}>
           <FontAwesomeIcon icon={faRefresh} />
         </button>
       </div>
       {
-        //مپ کردن لیست مخاطبین
-        //در اصل جای متغیر کانتکت باید فیلتر باشه برای تست ظاهر اینو گذاشتم
-        // filtered.length > 0 && (
-        //   <div className=" h-full overflow-y-scroll">
-        //     {filtered.map((value) => (
-        //       <UserProfile key={value.username} title={value.name} />
-        //     ))}
+        //اگر مخاطبی وجود داشت اینو نمایش میده
         contact.length > 0 && (
           <div className=" h-full overflow-y-scroll">
             {contact.map((value) => (
@@ -73,7 +70,7 @@ export default function UserList(props) {
                 title={value.name}
                 selectedUser={selectedUser}
                 setSelectedUser={setSelectedUser}
-                setChange={setChange}
+                setSelectContactIsChange={setSelectContactIsChange}
                 editButton={faEdit}
                 setOpenEditUserDialog={setOpenEditUserDialog}
               />

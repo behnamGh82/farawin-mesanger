@@ -106,7 +106,7 @@ export default function Login() {
       <Button
         title="ورود"
         onclick={handleLoginButton}
-        disabale={
+        disable={
           errorPhone == "Epmty"
             ? true
             : errorPhone == "notValid"
