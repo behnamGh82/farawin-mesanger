@@ -44,7 +44,7 @@ function Chat_Messenger({ contactinfo }) {
           authorization: token,
         },
         body: JSON.stringify({
-          id: id,
+          id: "id",
           textHtml: messageInput.current.value,
         }),
       }
@@ -63,7 +63,7 @@ function Chat_Messenger({ contactinfo }) {
           authorization: token,
         },
         body: JSON.stringify({
-          id: "1",
+          id: "",
         }),
       }
     );
