@@ -1,15 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 export default function UserProfile(props) {
   // گرفتن دو مقدار کلید:شماره کاربر و عنوان: نام کاربر
   const {
     data,
-    title,
     selectedUser,
     setSelectedUser,
     setChange,
     index,
     editButton,
+    title,
   } = props;
   // انتخاب کابر   هنوز تکمیلش نکردم
   const handleSelect = () => {
