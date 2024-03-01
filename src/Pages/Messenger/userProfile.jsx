@@ -29,12 +29,7 @@ export default function UserProfile(props) {
         <h1 className="m-auto text-xl text-white">{title.charAt(0)}</h1>
       </div>
       <h3 className="grow">{title}</h3>
-      <button
-        className="ml-5"
-        onClick={(e) => {
-          console.log(e);
-        }}
-      >
+      <button className="ml-5">
         <FontAwesomeIcon icon={editButton} />
       </button>
       {selected === index ? (

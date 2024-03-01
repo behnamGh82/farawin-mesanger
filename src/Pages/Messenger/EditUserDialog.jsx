@@ -1,6 +1,6 @@
 // ایمپورت موارد مورد نیاز
 import { useState } from "react";
-import Input from "../Form/Input.jsx";
+import InputBox from "../Form/InputBox.jsx";
 import Button from "../Form/button.jsx";
 import { faPhone, faX } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -35,7 +35,7 @@ export default function EditUserDialog(props) {
   const validatePhone = (Editphone) => {
     if (Editphone == "") {
       return "Epmty";
-    } else if (!phoneRegex.test(Editphone)) {
+    } else if (!phoneEditRegex.test(Editphone)) {
       return "notValid";
     }
     return "true";
