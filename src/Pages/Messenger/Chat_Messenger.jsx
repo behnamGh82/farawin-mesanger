@@ -6,9 +6,9 @@ function Chat_Messenger({ contactinfo }) {
   let messageInput = useRef();
   // استیت ست مسیج برای ذخیره پیام های دریافت شده از api
   const [messeges, setMesseges] = useState([]);
-  // const [sendMessages, setsendMesseage] = useState("");
-  // استیت لودینگ برای وقتی که پیامی دریافت نشده
-  const [isLoading, setLoading] = useState(true);
+  useEffect(() => {
+    setMesseges([]);
+  }, [contactinfo.contactDate.username]);
   // نوشتن درخواست برای افزودن پیام
   const handelbuttonSenderMessages = async () => {
     const token = localStorage.getItem("token");
@@ -25,6 +25,7 @@ function Chat_Messenger({ contactinfo }) {
         }),
       }
     );
+    messageInput.current.value = "";
     const res = await sendMessages.json();
     console.log(res);
     const newMsg = messeges;
@@ -73,6 +74,10 @@ function Chat_Messenger({ contactinfo }) {
                     <p className="text-[#212121] font-semibold">
                       {text.sender}
                     </p>
+                    ارسال به:
+                    <p className="text-[#212121] font-semibold">
+                      {text.receiver}
+                    </p>
                   </div>
                 </div>
               ))
@@ -89,11 +94,13 @@ function Chat_Messenger({ contactinfo }) {
               onSubmit={(e) => {
                 e.preventDefault();
                 handelbuttonSenderMessages();
+                // رفع باگ ارسال پیام
+                setMesseges("");
               }}
             >
-              <button>
+              {/* <button>
                 <i className="fa-solid fa-microphone text-3xl relative m-2"></i>
-              </button>
+              </button> */}
               <button>
                 <i className="fa-solid fa-paper-plane text-3xl relative m-2"></i>
               </button>
