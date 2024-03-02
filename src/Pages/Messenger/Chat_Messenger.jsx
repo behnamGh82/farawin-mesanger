@@ -65,27 +65,6 @@ function Chat_Messenger({ contactinfo }) {
     editMsg[index].text = "edited text";
     setMesseges(editMsg);
   };
-  // نوشتن درخواست برای حذف پیام
-  const handlerbuttonDeletedMessage = async (id, index) => {
-    const token = localStorage.getItem("token");
-    const DeletedMessege = await fetch(
-      "https://farawin.iran.liara.run/api/chat",
-      {
-        method: "DELETE",
-        headers: {
-          authorization: token,
-        },
-        body: JSON.stringify({
-          id: id,
-        }),
-      }
-    );
-    const res = DeletedMessege.json();
-    console.log(res);
-    let Deletedmessege = messeges;
-    DeletedMessege[index].remove(text);
-    setMesseges(DeletedMessege);
-  };
   return (
     <div>
       {/* قسمت بالایی چت */}
@@ -134,13 +113,6 @@ function Chat_Messenger({ contactinfo }) {
                         }}
                       >
                         <i className="fa-regular fa-pen-to-square"></i>
-                      </button>
-                      <button
-                        onClick={() => {
-                          handlerbuttonDeletedMessage(id);
-                        }}
-                      >
-                        <i className="fa-solid fa-trash"></i>
                       </button>
                     </div>
                   </div>
