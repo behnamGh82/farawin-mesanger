@@ -3,9 +3,7 @@ import { Children, useRef } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import "../../Components/ModalEditedMessenger";
-import ModalEditedMessenger from "../../Components/ModalEditedMessenger";
 function Chat_Messenger({ contactinfo }) {
-  const [modalEdited, SetShowModal] = useState(true);
   let messageInput = useRef();
   // استیت ست مسیج برای ذخیره پیام های دریافت شده از api
   const [messeges, setMesseges] = useState([]);
