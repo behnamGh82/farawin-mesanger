@@ -1,11 +1,19 @@
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import { useRef } from "react";
+import { Children, useRef } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import MassageSnder from "../../Components/MessegeSnder";
-import { confirmAlert } from "react-confirm-alert"; // Import
-import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
+import "../../Components/ModalEditedMessenger";
+import ModalEditedMessenger from "../../Components/ModalEditedMessenger";
+import ModalDeltedMessenger from "../../Components/ModalDeltedMessenger";
 function Chat_Messenger({ contactinfo }) {
+  const [modalEdited, SetShowModal] = useState(true);
+  const [modalDeleted, SetShowModalDeleted] = useState(false);
+  const modalEditedtrude = () => {
+    SetShowModal(true);
+  };
+  const modalDeletedtrued = () => {
+    SetShowModalDeleted(true);
+  };
   let messageInput = useRef();
   // استیت ست مسیج برای ذخیره پیام های دریافت شده از api
   const [messeges, setMesseges] = useState([]);
@@ -54,7 +62,7 @@ function Chat_Messenger({ contactinfo }) {
     const res = await EditedMessege.json();
     console.log(index);
     let editMsg = messeges;
-    // editMsg[index].text = "edited text";
+    editMsg[index].text = "edited text";
     setMesseges(editMsg);
   };
   // نوشتن درخواست برای حذف پیام
@@ -74,6 +82,9 @@ function Chat_Messenger({ contactinfo }) {
     );
     const res = DeletedMessege.json();
     console.log(res);
+    let Deletedmessege = messeges;
+    DeletedMessege[index].remove(text);
+    setMesseges(DeletedMessege);
   };
   return (
     <div>
@@ -124,7 +135,11 @@ function Chat_Messenger({ contactinfo }) {
                       >
                         <i className="fa-regular fa-pen-to-square"></i>
                       </button>
-                      <button onClick={handlerbuttonDeletedMessage}>
+                      <button
+                        onClick={() => {
+                          handlerbuttonDeletedMessage(id);
+                        }}
+                      >
                         <i className="fa-solid fa-trash"></i>
                       </button>
                     </div>
