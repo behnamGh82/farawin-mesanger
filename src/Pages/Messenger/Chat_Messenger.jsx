@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useEffect } from "react";
 import "../../Components/ModalEditedMessenger";
 import ModalEditedMessenger from "../../Components/ModalEditedMessenger";
-import ModalDeltedMessenger from "../../Components/ModalDeltedMessenger";
 function Chat_Messenger({ contactinfo }) {
   const [modalEdited, SetShowModal] = useState(true);
   let messageInput = useRef();
@@ -114,9 +113,6 @@ function Chat_Messenger({ contactinfo }) {
             ) : (
               <div>
                 <div className="text-center bg-[#FF4A09] p-[10px] text-[#212121] my-[200px] mx-[300px] rounded-md">
-                  <p className="w-[full] h-6 text-center">
-                    شما پیغامی دریافت نکردید
-                  </p>
                   <p>برای شروع چت باید پیغامی ارسال بکنید</p>
                 </div>
               </div>
