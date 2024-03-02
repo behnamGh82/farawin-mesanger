@@ -1,5 +1,4 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
 export default function UserProfile(props) {
   //data:object selectedUser:object setSelectedUser:setState-object
   //setSelectContactIsChange:setState-boolean
@@ -14,25 +13,6 @@ export default function UserProfile(props) {
     title,
     setOpenEditUserDialog,
   } = props;
-  const [thisContactChat, setThisContactChat] = useState([]);
-  const getThisContactChat = async () => {
-    const Contact = await fetch(
-      "https://farawin.iran.liara.run/api/chat/{contactUsername}",
-      {
-        path: { index },
-        headers: {
-          authorization: localStorage.getItem("token"),
-        },
-      }
-    );
-    const res = await Contact.json();
-    setThisContactChat(res.chatList);
-  };
-  useEffect(() => {
-    if (index != "") {
-      getThisContactChat();
-    }
-  }, [index]);
   // تابع برای انخاب هر مخاظب و ذخیره دیتای آن
   const handleSelect = () => {
     setSelectedUser({ contactDate: data, state: true });
@@ -46,14 +26,15 @@ export default function UserProfile(props) {
       }
       onClick={handleSelect}
     >
-      <div className="flex place-items-center h-16 w-16 mr-4 rounded-full bg-[#3d4785]">
+      <div className="flex place-items-center h-16 w-16 mr-4 rounded-full bg-[#ff4a09]">
         {/* نمایش حرف اول اسم کاربر بجای عکس */}
         <h1 className="m-auto text-xl text-white">{title.charAt(0)}</h1>
       </div>
       <div className=" flex flex-col grow">
+        {/* نمایش نام مخاطب */}
         <h3>{title}</h3>
-        <p>{thisContactChat[thisContactChat.length - 1]}</p>
       </div>
+      {/* دکمه ویرایش مخاطب */}
       <button
         className="ml-5  z-10"
         onClick={(e) => {

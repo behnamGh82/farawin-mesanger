@@ -36,7 +36,7 @@ export default function Login() {
     }
     return "true";
   };
-  //ذخیره مقدار برگشتی فانکشن ها اعتبار سنجی جهت مقایسه و نمایش پیام مناسب به کاربر
+  //ذخیره مقدار برگشتی فانکشن های اعتبار سنجی جهت مقایسه و نمایش پیام مناسب به کاربر
   const errorPhone = validationPhone(phone);
   const errorPassword = validationPassword(password);
   //استیت برای دخیره پیغام دریافتی از سرور
@@ -74,7 +74,9 @@ export default function Login() {
     }
   };
   return (
+    // کانتینر فرم ثبت نام
     <div className=" flex flex-col gap-5 place-items-center w-3/4 md:w-2/5 lg:w-2/6  m-auto h-4/5 bg-[#f1f7fe] shadow-lg rounded-3xl px-10 py-5 pt-20">
+      {/* اینپوت موبایل */}
       <InputBox
         value={phone}
         onChange={handlePhone}
@@ -89,6 +91,7 @@ export default function Login() {
         }
         type="tel"
       />
+      {/* اینپوت رمز عبور */}
       <InputBox
         value={password}
         onChange={handlePassword}
@@ -103,6 +106,7 @@ export default function Login() {
         }
         type="password"
       />
+      {/* دکمه ورود */}
       <Button
         title="ورود"
         onclick={handleLoginButton}
@@ -118,7 +122,9 @@ export default function Login() {
             : false
         }
       />
+      {/* نمایش پیغام سرور */}
       {errorApi != "" && <p className="text-xs text-red-500">{errorApi}</p>}
+      {/* لینک به صفحه ثبت نام */}
       <Link to={"/register"} className="underline text-blue-500 hover:text-2xl">
         ثبت نام
       </Link>
