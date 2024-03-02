@@ -97,12 +97,14 @@ export default function Register() {
     }
     setErrorApi(message);
     if (sucssesCode == "200") {
-      navigateChatPage("/Messenger");
+      navigateChatPage("/");
     }
   };
 
   return (
+    //کانتینر فرم ثبت نام
     <div className=" flex flex-col gap-5 place-items-center w-3/4 md:w-2/5 lg:w-2/6  m-auto h-4/5 bg-[#f1f7fe] shadow-lg rounded-3xl px-10 py-2">
+      {/* اینپوت نام */}
       <InputBox
         label="نام و نام خانوادگی"
         icon={faUser}
@@ -117,6 +119,7 @@ export default function Register() {
         value={name}
         onChange={handleName}
       />
+      {/* اینپوت موبایل */}
       <InputBox
         label="موبایل"
         icon={faPhone}
@@ -131,6 +134,7 @@ export default function Register() {
         value={phone}
         onChange={handlePhone}
       />
+      {/* اینپوت رمز */}
       <InputBox
         label="رمز"
         icon={faLock}
@@ -145,6 +149,7 @@ export default function Register() {
         value={password}
         onChange={handlePassword}
       />
+      {/* اینپوت تکرار رمز */}
       <InputBox
         label="تکرار رمز"
         icon={faLock}
@@ -159,6 +164,7 @@ export default function Register() {
         value={repeatPassword}
         onChange={handleRepeatPassword}
       />
+      {/* دکمه ثبت نام */}
       <Button
         title="ثبت نام"
         onclick={handleButton}
@@ -182,8 +188,10 @@ export default function Register() {
             : false
         }
       />
+      {/* نمایش پیغام سرور */}
       {errorApi != "" && <p className="text-xs text-red-500">{errorApi}</p>}
-      <Link to={"/login"} className="underline text-blue-500 hover:text-2xl">
+      {/* لینک به فرم ورود */}
+      <Link to={"/"} className="underline text-blue-500 hover:text-2xl">
         ورود
       </Link>
     </div>

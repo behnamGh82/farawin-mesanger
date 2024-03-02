@@ -14,8 +14,10 @@ export default function AddUserDialog(props) {
     selectContactIsChange,
     setSelectContactIsChange,
   } = props;
+  // استیت دخیره مقادیر نام و موبایل
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  //رجکس اعتبار سنجی موبایل
   const phoneRegex =
     /^(?:(?:(?:\\+?|00)(98))|(0))?((?:90|91|92|93|99)[0-9]{8})$/;
   const handleName = (event) => {
@@ -45,9 +47,10 @@ export default function AddUserDialog(props) {
   //ذخیره مقدار برگشتی فانکشن ها اعتبار سنجی جهت مقایسه و نمایش پیام مناسب به کاربر
   const errPhone = validatePhone(phone);
   const errName = validateName(name);
-  //استیت برای دخیره پیغام دریافتی از api ونمایش آن به کاربر
+  //استیت برای ذخیره پیغام سرور
   const [errorApi, setErrorApi] = useState("");
-  const [onclick, setOnclick] = useState(false);
+
+  //گرفتن مخاطبین از سرور
   const getContact = async () => {
     const Contact = await fetch("https://farawin.iran.liara.run/api/contact", {
       headers: {
@@ -61,6 +64,7 @@ export default function AddUserDialog(props) {
       )
     );
   };
+
   //فانکشن برای دکمه  ورود و فرستادن اطلاعات به سرور
   const handleButton = async () => {
     const token = localStorage.getItem("token");
@@ -80,19 +84,18 @@ export default function AddUserDialog(props) {
     setErrorApi(res.message);
     sucssesCode = res.code;
     if (sucssesCode == "200") {
+      //مخاطب با موفقیت اضافه شود اطلاعات از سرور مجدد دریافت شده و دیالوگ بسته میشود
       getContact();
-      setSelectedUser({
-        contactDate: contact[contact.length - 1],
-        state: true,
-      });
-      setSelectContactIsChange(true);
       setOpenAddUserDialog(false);
+      setSelectContactIsChange(true);
     }
   };
-
   return (
+    //کانتینر دیالوگ
     <div className="flex fixed w-full h-full bg-[#00000088] ">
+      {/* فرم دیالوگ */}
       <div className=" flex flex-col gap-5 place-items-center w-3/4 md:w-2/5 lg:w-2/6  m-auto h-4/5 bg-[#f1f7fe] shadow-lg rounded-3xl px-10 py-5 pt-20 relative">
+        {/* دکمه بستن دیالوگ */}
         <div className="absolute top-2 right-3 text-red-500">
           <button
             onClick={() => {
@@ -102,6 +105,7 @@ export default function AddUserDialog(props) {
             <FontAwesomeIcon icon={faX}></FontAwesomeIcon>
           </button>
         </div>
+        {/* اینپوت موبایل */}
         <InputBox
           value={phone}
           onChange={handlePhone}
@@ -116,6 +120,7 @@ export default function AddUserDialog(props) {
           }
           type="tel"
         />
+        {/* اینپوت نام */}
         <InputBox
           label="نام و نام خانوادگی"
           icon={faUser}
@@ -130,6 +135,7 @@ export default function AddUserDialog(props) {
           value={name}
           onChange={handleName}
         />
+        {/* دکمه افزودن */}
         <Button
           title="افزودن مخاطب"
           onclick={() => {
@@ -148,6 +154,7 @@ export default function AddUserDialog(props) {
               : false
           }
         />
+        {/* نمایش پیغام سرور */}
         {errorApi != "" && <p className="text-xs text-red-500">{errorApi}</p>}
       </div>
     </div>
