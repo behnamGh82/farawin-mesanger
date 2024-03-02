@@ -7,13 +7,6 @@ import ModalEditedMessenger from "../../Components/ModalEditedMessenger";
 import ModalDeltedMessenger from "../../Components/ModalDeltedMessenger";
 function Chat_Messenger({ contactinfo }) {
   const [modalEdited, SetShowModal] = useState(true);
-  const [modalDeleted, SetShowModalDeleted] = useState(false);
-  const modalEditedtrude = () => {
-    SetShowModal(true);
-  };
-  const modalDeletedtrued = () => {
-    SetShowModalDeleted(true);
-  };
   let messageInput = useRef();
   // استیت ست مسیج برای ذخیره پیام های دریافت شده از api
   const [messeges, setMesseges] = useState([]);
