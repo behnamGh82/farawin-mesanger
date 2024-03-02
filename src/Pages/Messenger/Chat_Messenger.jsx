@@ -2,7 +2,6 @@ import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { Children, useRef } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import "../../Components/ModalEditedMessenger";
 function Chat_Messenger({ contactinfo }) {
   let messageInput = useRef();
   // استیت ست مسیج برای ذخیره پیام های دریافت شده از api
@@ -32,28 +31,6 @@ function Chat_Messenger({ contactinfo }) {
     newMsg.push(res.chat);
     console.log(newMsg);
     setMesseges(newMsg);
-  };
-  // نوشتن درخواست برای ویرایش پیام
-  const handelbuttonEditedMessege = async (id, index) => {
-    const token = localStorage.getItem("token");
-    const EditedMessege = await fetch(
-      "https://farawin.iran.liara.run/api/chat",
-      {
-        method: "PUT",
-        headers: {
-          authorization: token,
-        },
-        body: JSON.stringify({
-          id: id,
-          textHtml: messageInput.current.value,
-        }),
-      }
-    );
-    const res = await EditedMessege.json();
-    console.log(index);
-    let editMsg = messeges;
-    editMsg[index].text = "edited text";
-    setMesseges(editMsg);
   };
   return (
     <div>
@@ -96,15 +73,6 @@ function Chat_Messenger({ contactinfo }) {
                     <p className="text-[#212121] font-semibold">
                       {text.sender}
                     </p>
-                    <div className="flex justify-between">
-                      <button
-                        onClick={() => {
-                          handelbuttonEditedMessege(text.id, index);
-                        }}
-                      >
-                        <i className="fa-regular fa-pen-to-square"></i>
-                      </button>
-                    </div>
                   </div>
                 </div>
               ))
