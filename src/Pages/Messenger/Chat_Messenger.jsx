@@ -1,57 +1,36 @@
-import { faAdd, faRefresh } from "@fortawesome/free-solid-svg-icons";
-import { useRef } from "react";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { Children, useRef } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import MassageSnder from "../../Components/MessegeSnder";
 function Chat_Messenger({ contactinfo }) {
   let messageInput = useRef();
   // استیت ست مسیج برای ذخیره پیام های دریافت شده از api
   const [messeges, setMesseges] = useState([]);
+  // const [sendMessages, setsendMesseage] = useState("");
   // استیت لودینگ برای وقتی که پیامی دریافت نشده
   const [isLoading, setLoading] = useState(true);
-  // نوشتن یوز افکت برای اجرای فچ و درخواست زدن
-  useEffect(() => {
-    //  به دلیل این که نمیشود به useEEfectتابع async داد یک تابع داخلش تعریف میکنیم
-    const fether = async () => {
-      const token = localStorage.getItem("token");
-      const chatData = await fetch(
-        "https://farawin.iran.liara.run/api/chat/{contactUsername}",
-        {
-          method: "GET",
-          headers: {
-            accept: "application/json",
-            authorization: token,
-          },
-          body: JSON.stringify({
-            username: contactinfo.contactDate.username,
-            token: token,
-          }),
-        }
-      );
-      const res = await GetChatMesseges.json();
-      console.log(res);
-    };
-    fether();
-  }, []);
-  // console.log(data);
   // نوشتن درخواست برای افزودن پیام
   const handelbuttonSenderMessages = async () => {
+    const token = localStorage.getItem("token");
     const sendMessages = await fetch(
       "https://farawin.iran.liara.run/api/chat",
       {
         method: "POST",
         headers: {
-          accept: "application/json",
-          authorization: "token",
+          authorization: token,
         },
         body: JSON.stringify({
-          username: contactinfo.contactDate.username,
-          chatData: data,
+          contactUsername: contactinfo.contactDate.username,
+          textHtml: messageInput.current.value,
         }),
       }
     );
     const res = await sendMessages.json();
     console.log(res);
+    const newMsg = messeges;
+    newMsg.push(res.chat);
+    console.log(newMsg);
+    setMesseges(newMsg);
   };
   return (
     <div>
@@ -81,11 +60,35 @@ function Chat_Messenger({ contactinfo }) {
               {/* اطلاعات مخاطب */}
             </div>
           </div>
-          <div className="mx-[80px] w-[96%] border-2 rounded-2xl  bg-[#ccc] h-[650px] overflow-auto"></div>
+          <div className="mx-[80px] w-[96%] border-2 rounded-2xl  bg-[#ccc] h-[650px] overflow-auto">
+            {messeges.length > 0 ? (
+              messeges.map((text, index) => (
+                <div>
+                  <div className="border-2 w-[200px] bg-[#FF4A09] mx-[20px] my-[10px] p-[5px] rounded-2xl text-[#ccc]">
+                    <p className="text-[#212121] font-semibold">
+                      پیغام : {text.text}
+                      {/* {console.log(messeges)} */}
+                    </p>
+                    ارسال کننده:
+                    <p className="text-[#212121] font-semibold">
+                      {text.sender}
+                    </p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div>
+                <div className="text-center bg-[#FF4A09] p-[10px] text-[#212121] my-[200px] mx-[300px] rounded-md">
+                  <p>برای شروع چت باید پیغامی ارسال بکنید</p>
+                </div>
+              </div>
+            )}
+          </div>
           <div className="lg:w-[60%] bottom-0 fixed shadow-lg border my-8 mx-16  rounded-lg bg-[#ccc] md:w-[45%] m-0 ">
             <form
               onSubmit={(e) => {
-                // e.preventDefault();
+                e.preventDefault();
+                handelbuttonSenderMessages();
               }}
             >
               <button>
