@@ -6,8 +6,32 @@ function Chat_Messenger({ contactinfo }) {
   let messageInput = useRef();
   // استیت ست مسیج برای ذخیره پیام های دریافت شده از api
   const [messeges, setMesseges] = useState([]);
+  // درخواست دریافت تمام پیام ها برای نمایش اون  در چت
   useEffect(() => {
-    setMesseges([]);
+    const fetchGetMessages = async () => {
+      const token = localStorage.getItem("token");
+      const getmessege = await fetch(
+        "https://farawin.iran.liara.run/api/chat",
+        {
+          method: "GET",
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      const res = await getmessege.json();
+      console.log(res);
+      let copyMegs = res.chatList.filter((msg) => {
+        return (
+          (msg.sender == localStorage.getItem("phone") &&
+            msg.receiver == contactinfo.contactDate.username) ||
+          (msg.receiver == localStorage.getItem("phone") &&
+            msg.sender == contactinfo.contactDate.username)
+        );
+      });
+      setMesseges(copyMegs);
+    };
+    fetchGetMessages();
   }, [contactinfo.contactDate.username]);
   // نوشتن درخواست برای افزودن پیام
   const handelbuttonSenderMessages = async () => {
@@ -33,6 +57,7 @@ function Chat_Messenger({ contactinfo }) {
     console.log(newMsg);
     setMesseges(newMsg);
   };
+
   return (
     <div>
       {/* قسمت بالایی چت */}
@@ -63,24 +88,34 @@ function Chat_Messenger({ contactinfo }) {
           </div>
           <div className="mx-[80px] w-[96%] border-2 rounded-2xl  bg-[#ccc] h-[650px] overflow-auto">
             {messeges.length > 0 ? (
-              messeges.map((text, index) => (
-                <div>
-                  <div className="border-2 w-[200px] bg-[#FF4A09] mx-[20px] my-[10px] p-[5px] rounded-2xl text-[#ccc]">
-                    <p className="text-[#212121] font-semibold">
-                      پیغام : {text.text}
-                      {/* {console.log(messeges)} */}
-                    </p>
-                    ارسال کننده:
-                    <p className="text-[#212121] font-semibold">
-                      {text.sender}
-                    </p>
-                    ارسال به:
-                    <p className="text-[#212121] font-semibold">
-                      {text.receiver}
-                    </p>
+              messeges.map((text, index) =>
+                parseInt(localStorage.getItem("phone")) ===
+                parseInt(text.sender) ? (
+                  <div className="flex justify-end" style={{ width: "100%" }}>
+                    <div
+                      className="border-2 bg-[#FF4A09] mx-[20px] my-[10px] p-[5px] rounded-2xl text-[#ccc]"
+                      style={{ width: "40%" }}
+                    >
+                      <p className="text-[#212121] w-40 font-semibold">
+                        پیغام : {text.text}
+                        {/* {console.log(messeges)} */}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ))
+                ) : (
+                  <div className="flex justify-start" style={{ width: "100%" }}>
+                    <div
+                      className="border-2 bg-[#FFFFFF] mx-[20px] my-[10px] p-[5px] rounded-2xl text-[#ccc]"
+                      style={{ width: "40%" }}
+                    >
+                      <p className="text-[#212121] w-40 font-semibold">
+                        پیغام : {text.text}
+                        {/* {console.log(messeges)} */}
+                      </p>
+                    </div>
+                  </div>
+                )
+              )
             ) : (
               <div>
                 <div className="text-center bg-[#FF4A09] p-[10px] text-[#212121] my-[200px] mx-[300px] rounded-md">
