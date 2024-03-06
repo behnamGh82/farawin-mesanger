@@ -64,37 +64,32 @@ function Chat_Messenger({ contactinfo }) {
       {contactinfo.state ? (
         // در صورتی که شرط اجرا بشه یا به اصطلاح وقتی که  کاربر انتخاب شده و صفحه چت درست میشه
         <div>
-          <div className="lg:flex w-full h-24 border bg-[#ccc] p-6 rounded-3xl my-[10px] mx-[50px] md:flex sm:flex">
+          <div className="lg:w-[1160px] flex  h-24 border bg-[#ffffff] text-[#212121] p-6 rounded-3xl my-[10px] mx-[60px] md:w-[578px]  sm:">
             {/* سمت راست هدر چت */}
             <div className="flex">
               <button className="mx-8">
                 <i className="fa-solid fa-ellipsis text-2xl"></i>
               </button>
-              <button>
-                <i className="fa-solid fa-magnifying-glass text-2xl"></i>
-              </button>
               {/* سمت چپ هدر بخش چت */}
-              <button className="mx-10 border border-[#222] rounded-2xl p-2 w-[150px] bg-[#222] text-[#ccc]">
-                <i className="fa-regular fa-user m-2"></i>
-                پروفایل
-              </button>
-              <h3 className="mx-[100px] w-[300px]">
+              <h3 className="lg:mx-[200px] md:mx-[40px]">
                 نام کاربری:{contactinfo.contactDate.name}
               </h3>
               <br></br>
-              <h3>شماره تلفن : {contactinfo.contactDate.username}</h3>
+              <h3 className="lg:mx-20">
+                شماره تلفن : {contactinfo.contactDate.username}
+              </h3>
               {/* اطلاعات مخاطب */}
             </div>
           </div>
-          <div className="mx-[80px] w-[96%] border-2 rounded-2xl  bg-[#ccc] h-[650px] overflow-auto">
+          <div className="lg:w-[1130px] mx-[80px] border-2 rounded-2xl  bg-[#E0E0E0] h-[650px] overflow-auto">
             {messeges.length > 0 ? (
               messeges.map((text, index) =>
                 parseInt(localStorage.getItem("phone")) ===
                 parseInt(text.sender) ? (
                   <div className="flex justify-end" style={{ width: "100%" }}>
                     <div
-                      className="border-2 bg-[#FF4A09] mx-[20px] my-[10px] p-[5px] rounded-2xl text-[#ccc]"
-                      style={{ width: "40%" }}
+                      className="border-2 bg-[#FF4A09] mx-[20px] my-[10px] p-[5px] rounded-2xl text-[#ccc] lg:w-[40%] md:w-[100%] h-[40%]"
+                      // style={{ width: "40%" }}
                     >
                       <p className="text-[#212121] w-40 font-semibold">
                         پیغام : {text.text}
@@ -124,7 +119,7 @@ function Chat_Messenger({ contactinfo }) {
               </div>
             )}
           </div>
-          <div className="lg:w-[60%] bottom-0 fixed shadow-lg border my-8 mx-16  rounded-lg bg-[#ccc] md:w-[45%] m-0 ">
+          <div className="lg:w-[1150px] bottom-0 fixed shadow-lg border my-8 mx-16  rounded-lg bg-[#ffffff] md:w-[550px] m-0 ">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -137,10 +132,10 @@ function Chat_Messenger({ contactinfo }) {
                 <i className="fa-solid fa-microphone text-3xl relative m-2"></i>
               </button> */}
               <button>
-                <i className="fa-solid fa-paper-plane text-3xl relative m-2"></i>
+                <i className="fa-solid fa-paper-plane text-3xl relative m-2 text-[#212121]"></i>
               </button>
               <input
-                className="lg:w-[84%] rounded p-1 m-2 absolute border-none bg-[#ccc] font-semibold md:w-[80%]"
+                className="lg:w-[84%] rounded p-1 m-2 absolute border-none bg-[#ffffff] font-semibold md:w-[80%]"
                 ref={messageInput}
                 placeholder="پیام خود را ارسال کنید"
               ></input>
