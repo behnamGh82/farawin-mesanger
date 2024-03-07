@@ -86,7 +86,7 @@ function Chat_Messenger({ contactinfo }) {
                 parseInt(text.sender) ? (
                   <div className="flex justify-end" style={{ width: "100%" }}>
                     <div
-                      className="border-2 bg-[#FF4A09] mx-[20px] my-[10px] p-[5px] rounded-2xl text-[#ccc] lg:w-[40%] md:w-[100%] h-[40%] sm:w-[100%]"
+                      className="border-2 bg-[#FF4A09] mx-[20px] my-[10px] p-[5px] rounded-2xl text-[#ccc] lg:w-[40%] md:w-[100%] h-[40%] sm:w-[800px] overflow-hidden"
                       // style={{ width: "40%" }}
                     >
                       <p className="text-[#212121] w-40 font-semibold">
@@ -98,10 +98,10 @@ function Chat_Messenger({ contactinfo }) {
                 ) : (
                   <div className="flex justify-start" style={{ width: "100%" }}>
                     <div
-                      className="border-2 bg-[#FFFFFF] mx-[20px] my-[10px] p-[5px] rounded-2xl text-[#ccc]"
-                      style={{ width: "40%" }}
+                      className="border-2 bg-[#001318] mx-[20px] my-[10px] p-[5px] rounded-2xl text-[#ccc] lg:w-[40%] md:w-[100%] sm:w-[800px] overflow-hidden"
+                      // style={{ width: "40%" }}
                     >
-                      <p className="text-[#212121] w-40 font-semibold">
+                      <p className="text-[#ccc] w-40 font-semibold">
                         پیغام : {text.text}
                         {/* {console.log(messeges)} */}
                       </p>
