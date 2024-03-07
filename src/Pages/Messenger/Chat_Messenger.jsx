@@ -79,7 +79,7 @@ function Chat_Messenger({ contactinfo }) {
               {/* اطلاعات مخاطب */}
             </div>
           </div>
-          <div className="lg:w-[1130px] mx-[80px] border-2 rounded-2xl  bg-[#E0E0E0] h-[650px] overflow-auto sm:w-[280px]">
+          <div className="lg:w-[1130px] mx-[80px] border-2 rounded-2xl  bg-[#E0E0E0] h-[650px] overflow-auto md:w-[520px] sm:w-[280px]">
             {messeges.length > 0 ? (
               messeges.map((text, index) =>
                 parseInt(localStorage.getItem("phone")) ===
