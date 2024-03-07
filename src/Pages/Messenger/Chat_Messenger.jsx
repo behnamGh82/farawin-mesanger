@@ -4,8 +4,10 @@ import { useState } from "react";
 import { useEffect } from "react";
 function Chat_Messenger({ contactinfo }) {
   let messageInput = useRef();
+
   // استیت ست مسیج برای ذخیره پیام های دریافت شده از api
   const [messeges, setMesseges] = useState([]);
+
   // درخواست دریافت تمام پیام ها برای نمایش اون  در چت
   useEffect(() => {
     const fetchGetMessages = async () => {
@@ -33,6 +35,7 @@ function Chat_Messenger({ contactinfo }) {
     };
     fetchGetMessages();
   }, [contactinfo.contactDate.username]);
+
   // نوشتن درخواست برای افزودن پیام
   const handelbuttonSenderMessages = async () => {
     const token = localStorage.getItem("token");
@@ -90,7 +93,7 @@ function Chat_Messenger({ contactinfo }) {
                       // style={{ width: "40%" }}
                     >
                       <p className="text-[#212121] w-40 font-semibold">
-                        پیغام : {text.text}
+                        {text.text}
                         {/* {console.log(messeges)} */}
                       </p>
                     </div>
@@ -102,7 +105,7 @@ function Chat_Messenger({ contactinfo }) {
                       // style={{ width: "40%" }}
                     >
                       <p className="text-[#ccc] w-40 font-semibold">
-                        پیغام : {text.text}
+                        {text.text}
                         {/* {console.log(messeges)} */}
                       </p>
                     </div>
@@ -122,8 +125,6 @@ function Chat_Messenger({ contactinfo }) {
               onSubmit={(e) => {
                 e.preventDefault();
                 handelbuttonSenderMessages();
-                // رفع باگ ارسال پیام
-                setMesseges("");
               }}
             >
               {/* <button>
