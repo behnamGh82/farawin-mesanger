@@ -98,7 +98,7 @@ function Chat_Messenger({ contactinfo }) {
                 ) : (
                   <div className="flex justify-start" style={{ width: "100%" }}>
                     <div
-                      className="border-2 bg-[#001318] mx-[20px] my-[10px] p-[5px] rounded-2xl text-[#ccc] lg:w-[40%] md:w-[100%] sm:w-[800px] overflow-hidden"
+                      className="border-2 bg-[#001318] mx-[20px] my-[10px] p-[5px] rounded-2xl text-[#ccc] lg:w-[40%] md:w-[50%] sm:w-[80%] overflow-hidden"
                       // style={{ width: "40%" }}
                     >
                       <p className="text-[#ccc] w-40 font-semibold">
