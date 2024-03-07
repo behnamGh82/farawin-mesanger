@@ -65,30 +65,28 @@ function Chat_Messenger({ contactinfo }) {
         // در صورتی که شرط اجرا بشه یا به اصطلاح وقتی که  کاربر انتخاب شده و صفحه چت درست میشه
         <div>
           <div className="lg:w-[1160px] flex  h-24 border bg-[#ffffff] text-[#212121] p-6 rounded-3xl my-[10px] mx-[60px] md:w-[578px]  sm:">
-            {/* سمت راست هدر چت */}
             <div className="flex">
-              <button className="mx-8">
+              {/* <button className="mx-8">
                 <i className="fa-solid fa-ellipsis text-2xl"></i>
-              </button>
-              {/* سمت چپ هدر بخش چت */}
-              <h3 className="lg:mx-[200px] md:mx-[40px]">
-                نام کاربری:{contactinfo.contactDate.name}
+              </button> */}
+              <h3 className="lg:mx-[200px] md:mx-[20px]">
+                نام کاربری : {contactinfo.contactDate.name}
               </h3>
               <br></br>
-              <h3 className="lg:mx-20">
+              <h3 className="lg:mx-20 md:mx-[10px]">
                 شماره تلفن : {contactinfo.contactDate.username}
               </h3>
               {/* اطلاعات مخاطب */}
             </div>
           </div>
-          <div className="lg:w-[1130px] mx-[80px] border-2 rounded-2xl  bg-[#E0E0E0] h-[650px] overflow-auto">
+          <div className="lg:w-[1130px] mx-[80px] border-2 rounded-2xl  bg-[#E0E0E0] h-[650px] overflow-auto sm:w-[280px]">
             {messeges.length > 0 ? (
               messeges.map((text, index) =>
                 parseInt(localStorage.getItem("phone")) ===
                 parseInt(text.sender) ? (
                   <div className="flex justify-end" style={{ width: "100%" }}>
                     <div
-                      className="border-2 bg-[#FF4A09] mx-[20px] my-[10px] p-[5px] rounded-2xl text-[#ccc] lg:w-[40%] md:w-[100%] h-[40%]"
+                      className="border-2 bg-[#FF4A09] mx-[20px] my-[10px] p-[5px] rounded-2xl text-[#ccc] lg:w-[40%] md:w-[100%] h-[40%] sm:w-[100%]"
                       // style={{ width: "40%" }}
                     >
                       <p className="text-[#212121] w-40 font-semibold">
@@ -119,7 +117,7 @@ function Chat_Messenger({ contactinfo }) {
               </div>
             )}
           </div>
-          <div className="lg:w-[1150px] bottom-0 fixed shadow-lg border my-8 mx-16  rounded-lg bg-[#ffffff] md:w-[550px] m-0 ">
+          <div className="lg:w-[1150px] bottom-0 fixed shadow-lg border my-8 mx-16  rounded-lg bg-[#ffffff] md:w-[550px] m-0 sm:w-[290px] ">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
